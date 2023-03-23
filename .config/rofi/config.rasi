@@ -1,6 +1,7 @@
 configuration {
 	modi: "window,run,ssh,drun";
     line-margin: 10;
+    sidebar-mode: true;
 
     display-ssh:    "";
     display-run:    "";
@@ -19,4 +20,8 @@ listview {
 
 window {
 	width: 50%;
+}
+
+element-icon {
+    size: 1.2em;
 }
