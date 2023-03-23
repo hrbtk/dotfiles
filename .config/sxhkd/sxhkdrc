@@ -5,7 +5,7 @@ super + Return
 	kitty
 
 # rofi launchers
-super + space
+super + p
    	rofi -modi drun -show drun -line padding 4 -hide-scrollbar -show-icons
    	
 super + shift + Return
@@ -29,26 +29,10 @@ super + f
 	thunar
 
 super + e
-	geany
-
-super + g
-	gimp
-	
-super + c
-	google-chrome
-	
-super + d
-	Discord
-
-super + o
-	obs
+	code
 
 super + t
 	~/bin/time_date
-	
-super + shift + c
-	galculator
-
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -66,6 +50,7 @@ super + q
 
 super + i
     bspc node -R 90
+
 super + shift + i
     bspc node -R -90
 
@@ -107,11 +92,11 @@ super + shift + m
 #########
 super + alt + @s
 	scrot -s -e 'mv $f ~/Pictures'; \
-	notify-send 'Scrot' 'Selected image to ~/Pictures'
+	dunstify 'Scrot' 'Selected image to ~/Pictures'
 
 super + s
 	scrot -e 'mv $f ~/Pictures'; \
-	notify-send 'Scrot' 'Image saved to ~/Pictures'
+	dunstify 'Scrot' 'Image saved to ~/Pictures'
 	
 ## redshift
 super + alt + r
@@ -119,7 +104,6 @@ super + alt + r
 	
 super + alt + b
 	~/bin/redshift-off
-
 
 ## Show clipmenu
 alt + v
