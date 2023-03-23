@@ -26,7 +26,7 @@ super + h
 # application launchers
 
 super + f
-	thunar
+	pcmanfm
 
 super + e
 	code
