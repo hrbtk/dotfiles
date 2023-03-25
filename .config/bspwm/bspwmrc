@@ -5,14 +5,27 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 # xrandr --output Virtual1 --mode 1680x1050 &
 nitrogen --restore &
 ~/.config/polybar/launch.sh &
+dunst &
 picom &
+xsetroot -cursor_name left_ptr
+xset r rate 200 50
 
 # Workspaces
 bspc monitor -d I II III IV V
 
 # Other settings
 bspc config border_width         2
-bspc config window_gap           8
+bspc config window_gap           5
 bspc config split_ratio          0.5
 
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config paddingless_monocle true
+bspc config single_monocle false
+# bspc config focus_follows_pointer true
 
+# Colors
+bspc config normal_border_color "#2E3440"
+bspc config active_border_color "#5E81AC"
+bspc config focused_border_color "#88C0D0"
+bspc config presel_border_color "#5E81AC"

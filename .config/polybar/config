@@ -12,11 +12,13 @@ turquoise  = #88C0D0
 [bar/main]
 monitor = Virtual1
 width = 100%
-height = 20
-; offset-x = 1%
-; offset-y = 1%
-radius = 0
+height = 35
+;offset-x = 1%
+;offset-y = 1%
+radius = 5
 fixed-center = true
+
+wm-restack=bspwm
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -38,11 +40,10 @@ font-2 = siji:pixelsize=10;2
 font-3 = Font Awesome 5 Free Regular:size=12;3
 font-4 = Font Awesome 5 Free Solid:size=12;3
 font-5 = Font Awesome 5 Brands Regular:size=12;3
-font-6 = Source Code Pro Bold:size=12;3
 
 modules-left = bspwm
 modules-center = xwindow
-modules-right = filesystem pulseaudio memory cpu eth date
+modules-right = wlan eth filesystem pulseaudio memory cpu date
 
 tray-position = right
 tray-padding = 2
@@ -75,7 +76,7 @@ interval = 25
 
 mount-0 = /
 
-label-mounted =  %percentage_used%%
+label-mounted = %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.red}
 
@@ -113,16 +114,40 @@ format-prefix = " "
 format-prefix-foreground = ${colors.green}
 label = %percentage_used%%
 
+[module/wlan]
+type = internal/network
+interface = wlan1
+interval = 1.0
+
+format-connected-prefix = "直 "
+format-connected-prefix-foreground = ${colors.green}
+;label-connected = %local_ip%
+;speed-unit = ""
+
+label-connected = "  %downspeed%   %upspeed%  "
+
+
+format-disconnected-prefix = "睊 "
+format-disconnected-prefix-foreground = ${colors.red}
+;format-disconnected = <label-disconnected>
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
 [module/eth]
 type = internal/network
-interface = enp0s31f6
-interval = 3.0
+interface = ens33
+interval = 1.0
 
 format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+format-connected-prefix-foreground = ${colors.green}
+;label-connected = %local_ip%
+;speed-unit = ""
 
-format-disconnected =
+label-connected = "  %downspeed%   %upspeed%  "
+
+
+format-disconnected-prefix = " "
+format-disconnected-prefix-foreground = ${colors.red}
 ;format-disconnected = <label-disconnected>
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
@@ -148,39 +173,38 @@ use-ui-max = false
 
 format-volume = <label-volume>
 label-volume =  %percentage%%
-label-volume-foreground = ${color.green}
 
 label-muted =  
 label-muted-foreground = ${colors.red}
 
-[module/powermenu]
-type = custom/menu
+; [module/powermenu]
+; type = custom/menu
 
-expand-right = true
+; expand-right = true
 
-format-spacing = 1
+; format-spacing = 1
 
-label-open = 
-label-open-foreground = ${colors.red}
-label-close =  
-label-close-foreground = ${colors.red}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+; label-open = 
+; label-open-foreground = ${colors.red}
+; label-close =  
+; label-close-foreground = ${colors.red}
+; label-separator = |
+; label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
+; menu-0-0 = reboot
+; menu-0-0-exec = menu-open-1
+; menu-0-1 = power off
+; menu-0-1-exec = menu-open-2
 
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
+; menu-1-0 = cancel
+; menu-1-0-exec = menu-open-0
+; menu-1-1 = reboot
+; menu-1-1-exec = sudo reboot
 
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
+; menu-2-0 = power off
+; menu-2-0-exec = sudo poweroff
+; menu-2-1 = cancel
+; menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
@@ -188,10 +212,10 @@ screenchange-reload = true
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
-;pseudo-transparency = false
+pseudo-transparency = true
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+;margin-top = 5
+;margin-bottom = 5
 
 ; vim:ft=dosini
