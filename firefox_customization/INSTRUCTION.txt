@@ -1,0 +1,3 @@
+Instruction for vertical tabs: https://github.com/ranmaru22/firefox-vertical-tabs
+Extension for colored tabs: https://github.com/easonwong-de/Adaptive-Tab-Bar-Color
+
