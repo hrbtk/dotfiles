@@ -94,4 +94,6 @@ function parse_git_dirty {
 # PS1="\[\e[32;1m\]\u\[\e[m\]\[\e[36;1m\]@\[\e[m\]\[\e[34;1m\]\h\[\e[m\] \W \[\e[33m\]\`parse_git_branch\`\[\e[m\]\\$ "
 export PS1="\W \[\e[33m\]\`parse_git_branch\`\[\e[m\]\\$ "
 
-neofetch
+if [[ $(command -v neofetch) ]]; then
+    neofetch
+fi
