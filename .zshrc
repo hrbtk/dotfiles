@@ -1,34 +1,41 @@
+# Created by newuser for 5.9
 
+# Plugins
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Aliases
+alias ls='eza --color=always --icons=always'
+alias ll='eza -alh --header --color=always --icons=always --git --group-directories-first'
+alias lt='eza -alh --header --color=always --icons=always --tree --group-directories-first'
+alias gs='git status'
+alias e='micro'
+alias se='sudo micro'
+alias grep='grep --color=auto'
+alias df='df -h'
+alias free='free -h'
+alias fastfetch='fastfetch -c ~/.config/fastfetch/config.jsonc'
+alias bat='batcat'
 
-#Aliases
-alias ll="exa -alh --color=always --git --group-directories-first"
-alias lt="exa -Tal --level=3 --color=always  --group-directories-first"
-alias micro="~/micro"
-alias e="~/bin/micro"
-alias se="sudo ~/bin/micro"
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=999
+SAVEHIST=1000
 
-alias gs="git status"
-alias gc="git commit"
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_verify
 
-# Load version control information
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
+
+# Prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }
-
-# Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git:*' formats '%F{yellow}[%b]%f '
-
-# Set up the prompt (with git branch name)
+zstyle ':vcs_info:git:*' formats '%b '
 setopt PROMPT_SUBST
-PROMPT='%F{green}%1~%f ${vcs_info_msg_0_}$ '
+PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
-# Don't show duplicated lines in history
-setopt HIST_FIND_NO_DUPS
-
-# PROMPT='%F{cyan}%n%f : %F{green}%1~%f ${vcs_info_msg_0_}$ '
-
-# export PS1="%F{cyan}%n%f : %F{green}%1~%f %# "
-# old PS1: %n@%m %1~ %#
+# Fetch on startup
+fastfetch
