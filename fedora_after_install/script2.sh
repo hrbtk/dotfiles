@@ -52,3 +52,10 @@ sudo flatpak install -y flathub $fapps
 # Install Google Chrome
 wget -O ~/Downloads/google-chrome-stable_current_x86_64.rpm  https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 sudo dnf install -y ~/Downloads/google-chrome-stable_current_x86_64.rpm
+
+# Change shell to zsh
+sudo chsh -s $(which zsh)
+
+# Copy config files
+cp ~/dotfiles/.zshrc ~/.zshrc
+cp -r ~/dotfiles/.config/zsh ~/.config/zsh
