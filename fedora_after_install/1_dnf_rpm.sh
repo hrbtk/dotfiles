@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Modify dnf.conf
-echo "fastestmirror=True 
+sudo echo "fastestmirror=True 
 max_parallel_downloads=10 
 deltarpm=true
 defaultyes=True
