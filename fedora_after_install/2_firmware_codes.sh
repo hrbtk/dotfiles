@@ -22,10 +22,3 @@ sudo dnf install -y ffmpeg ffmpeg-libs libva libva-utils
 #for firefox
 sudo dnf config-manager --set-enabled fedora-cisco-openh264
 sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
-
-# Change shell to zsh
-sudo chsh -s $(which zsh)
-
-# Copy config files
-cp ~/dotfiles/.zshrc ~/.zshrc
-cp -r ~/dotfiles/.config/zsh ~/.config/zsh
