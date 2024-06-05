@@ -17,7 +17,7 @@ sudo dnf group upgrade --with-optional Multimedia
 sudo dnf install -y ffmpeg ffmpeg-libs libva libva-utils
 
 # for amd
-# sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
 
 #for firefox
 sudo dnf config-manager --set-enabled fedora-cisco-openh264
