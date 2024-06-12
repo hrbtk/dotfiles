@@ -32,14 +32,19 @@ if ! shopt -oq posix; then
 fi
 
 alias ls='exa --color=always'
-alias ll='exa -alh --header --color=always --git --group-directories-first'
-alias lt='exa -alh --header --color=always --tree --group-directories-first'
+alias ll='exa -alh --header --color=always --icons=always --git --group-directories-first'
+alias lt='exa -alh --header --color=always --icons=always --tree --group-directories-first'
 alias gs='git status'
 alias e='micro'
 alias se='sudo micro'
 alias grep='grep --color=auto'
 alias df='df -h'
 alias free='free -h'
+
+# fzf
+if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
+	source /usr/share/fzf/shell/key-bindings.bash
+fi
 
 # get current branch in git repo
 function parse_git_branch() {
@@ -94,6 +99,7 @@ function parse_git_dirty {
 # PS1="\[\e[32;1m\]\u\[\e[m\]\[\e[36;1m\]@\[\e[m\]\[\e[34;1m\]\h\[\e[m\] \W \[\e[33m\]\`parse_git_branch\`\[\e[m\]\\$ "
 export PS1="\W \[\e[33m\]\`parse_git_branch\`\[\e[m\]\\$ "
 
-if [[ $(command -v neofetch) ]]; then
-    neofetch
+# Fetch
+if [[ $(command -v afetch) ]]; then
+    afetch
 fi

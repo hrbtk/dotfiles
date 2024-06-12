@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install zsh
+sudo dnf install -y zsh
+
 # Change shell to zsh
 sudo chsh -s $(which zsh)
 
