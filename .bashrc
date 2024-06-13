@@ -31,9 +31,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias ls='exa --color=always'
-alias ll='exa -alh --header --color=always --icons=always --git --group-directories-first'
-alias lt='exa -alh --header --color=always --icons=always --tree --group-directories-first'
+alias ls='eza --color=always'
+alias ll='eza -alh --header --color=always --icons=always --git --group-directories-first'
+alias lt='eza -alh --header --color=always --icons=always --tree --group-directories-first'
 alias gs='git status'
 alias e='micro'
 alias se='sudo micro'
