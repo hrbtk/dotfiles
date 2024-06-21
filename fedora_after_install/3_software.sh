@@ -6,7 +6,7 @@ apps="git
 	eza
 	bat
 	fd-find
-	fzf
+	ripgrep
 	afetch
 	btop
 	neovim
@@ -18,6 +18,10 @@ apps="git
 	afetch"
 
 sudo dnf install -y $apps
+
+# Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --all
 
 # Setup flathub
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
