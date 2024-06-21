@@ -15,7 +15,8 @@ apps="git
 	dconf-editor
 	pipx
 	alacritty
-	afetch"
+	afetch
+	cargo"
 
 sudo dnf install -y $apps
 
@@ -34,19 +35,23 @@ fapps="net.nokyan.Resources
 	com.heroicgameslauncher.hgl
 	com.usebottles.bottles
 	org.gnome.World.PikaBackup
-	com.github.PintaProject.Pinta"
+	com.github.PintaProject.Pinta
+	io.github.amit9838.mousam
+	io.gitlab.adhami3310.Converter
+	org.kde.krita"
 
 sudo flatpak install -y flathub $fapps
 
 # Install gnome extensions cli
-# pipx install gnome-extensions-cli --system-site-packages
+pipx install gnome-extensions-cli --system-site-packages
+pipx ensurepath
 
 # Install gnome extensions
-# gext install user-theme@gnome-shell-extensions.gcampax.github.com
-# gext install dash-to-dock@micxgx.gmail.com
-# gext install clipboard-indicator@tudmotu.com
-# gext install caffeine@patapon.info
-# gext install blur-my-shell@aunetx
+gext install user-theme@gnome-shell-extensions.gcampax.github.com
+gext install dash-to-dock@micxgx.gmail.com
+gext install clipboard-indicator@tudmotu.com
+gext install caffeine@patapon.info
+gext install blur-my-shell@aunetx
 
 # Install Google Chrome
 wget -O ~/Downloads/google-chrome-stable_current_x86_64.rpm  https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
