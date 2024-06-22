@@ -18,7 +18,7 @@ apps="git
 	afetch
 	cargo"
 
-sudo dnf install -y $apps
+sudo dnf -y install $apps
 
 # Install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf

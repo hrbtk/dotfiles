@@ -1,0 +1,4 @@
+[/]
+binding='<Super>Return'
+command='alacritty'
+name='Launch Alacritty'

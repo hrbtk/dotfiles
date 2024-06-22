@@ -8,8 +8,8 @@ defaultyes=True
 " | sudo tee -a /etc/dnf/dnf.conf
 
 # Enable RPM Fusion
-sudo dnf install -y  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf groupupdate core
+sudo dnf -y install  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf -y groupupdate core
 
 # Update packages
 sudo dnf -y update

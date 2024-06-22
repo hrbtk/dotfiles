@@ -48,9 +48,9 @@ alias ....='cd ../../..'
 
 
 # fzf
-if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
-	source /usr/share/fzf/shell/key-bindings.bash
-fi
+# if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
+# 	source /usr/share/fzf/shell/key-bindings.bash
+# fi
 
 # get current branch in git repo
 function parse_git_branch() {
