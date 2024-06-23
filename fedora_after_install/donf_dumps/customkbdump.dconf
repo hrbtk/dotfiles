@@ -1,4 +1,4 @@
 [/]
 binding='<Super>Return'
-command='alacritty'
-name='Launch Alacritty'
+command='flatpak run com.raggesilver.BlackBox'
+name='Launch BlackBox'

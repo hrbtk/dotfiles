@@ -16,7 +16,8 @@ apps="git
 	pipx
 	alacritty
 	afetch
-	cargo"
+	cargo
+	adw-gtk3-theme"
 
 sudo dnf -y install $apps
 
@@ -38,7 +39,10 @@ fapps="net.nokyan.Resources
 	com.github.PintaProject.Pinta
 	io.github.amit9838.mousam
 	io.gitlab.adhami3310.Converter
-	org.kde.krita"
+	org.kde.krita
+	com.raggesilver.BlackBox
+	org.gtk.Gtk3theme.adw-gtk3 
+	org.gtk.Gtk3theme.adw-gtk3-dark"
 
 sudo flatpak install -y flathub $fapps
 
@@ -57,6 +61,6 @@ dnf check-update
 sudo dnf install -y code
 
 # Copy config
-cp -r ~/dotfiles/.config/alacritty ~/.config/
+# cp -r ~/dotfiles/.config/alacritty ~/.config/
 cp ~/.bashrc ~/.bashrc.bak
 cp ~/dotfiles/.bashrc ~/.bashrc

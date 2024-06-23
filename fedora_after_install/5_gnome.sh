@@ -17,7 +17,7 @@ cp -r ~/dotfiles/wallpapers ~/Pictures/
 
 # Download Meslo Nerd Font
 wget -O ~/Downloads/Meslo.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.tar.xz
-extract Meslo.tar.xz
+tar -xf ~/Downloads/Meslo.tar.xz
 mkdir -p ~/.local/share/fonts/Meslo
 mv ~/Downloads/Meslo*.ttf ~/.local/share/fonts/Meslo/
 fc-cache -f -v
