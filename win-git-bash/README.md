@@ -13,6 +13,7 @@ Download [micro](https://github.com/zyedidia/micro/releases/latest), [exa](https
 ### 1.1 Add colorschemes
 <details>
 <summary>Tokyo Night</summary>
+
 ```json
 {
     "background": "#1A1B2C",
