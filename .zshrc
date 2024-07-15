@@ -36,13 +36,6 @@ bindkey "^[[B" history-search-forward
 # autoload -Uz compinit
 # compinit 
 
-# Prompt
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b '
-setopt PROMPT_SUBST
-PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
-
 # fzf (will be added automaticaly during installation)
 # eval "$(fzf --zsh)"
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -52,6 +45,13 @@ if [[ $(command -v afetch) ]]; then
     afetch
     printf "\n"
 fi
+
+# Prompt
+# autoload -Uz vcs_info
+# precmd() { vcs_info }
+# zstyle ':vcs_info:git:*' formats '%b '
+# setopt PROMPT_SUBST
+# PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
 # starship prompt
 eval "$(starship init zsh)"
