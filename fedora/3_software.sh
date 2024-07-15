@@ -49,7 +49,10 @@ sudo flatpak install -y flathub $fapps
 pipx install gnome-extensions-cli --system-site-packages
 pipx ensurepath
 
+# Install apps from gh
+# TODO
+
 # Copy config
-cp -r ~/dotfiles/.config/alacritty ~/.config/
+# cp -r ~/dotfiles/.config/alacritty ~/.config/
 cp ~/.bashrc ~/.bashrc.bak
 cp ~/dotfiles/.bashrc ~/.bashrc
