@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 # Install software
 apps="git 
 	micro 
@@ -29,7 +29,7 @@ sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 
 # Install flatpaks
 fapps="net.nokyan.Resources
-	com.discordapp.Discord
+	dev.vencord.Vesktop
 	com.github.tchx84.Flatseal
 	com.mattjakeman.ExtensionManager
 	com.heroicgameslauncher.hgl
@@ -41,7 +41,8 @@ fapps="net.nokyan.Resources
 	org.kde.krita
 	com.raggesilver.BlackBox
 	org.gtk.Gtk3theme.adw-gtk3 
-	org.gtk.Gtk3theme.adw-gtk3-dark"
+	org.gtk.Gtk3theme.adw-gtk3-dark
+	io.github.realmazharhussain.GdmSettings"
 
 sudo flatpak install -y flathub $fapps
 
@@ -49,8 +50,10 @@ sudo flatpak install -y flathub $fapps
 pipx install gnome-extensions-cli --system-site-packages
 pipx ensurepath
 
-# Install apps from gh
-# TODO
+# Install apps with scripts
+for file in ~/dotfiles/fedora/apps/app_*.sh; do
+    bash "$file"
+done
 
 # Copy config
 # cp -r ~/dotfiles/.config/alacritty ~/.config/
