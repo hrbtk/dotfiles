@@ -1,6 +1,7 @@
 # Plugins
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Aliases
 alias ls='eza --icons=always --color=always'
@@ -25,6 +26,10 @@ setopt hist_verify
 
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
+
+# Completions (commented out because of zsh-autocomplete plugin)
+# autoload -Uz compinit
+# compinit 
 
 # Prompt
 autoload -Uz vcs_info
