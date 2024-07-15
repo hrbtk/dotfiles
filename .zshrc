@@ -8,11 +8,16 @@ alias ls='eza --icons=always --color=always'
 alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
 alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
 alias gs='git status'
+alias gaa='git add .'
+alias gti='git'
 alias e='micro'
 alias se='sudo micro'
 alias grep='grep --color=auto'
 alias df='df -h'
 alias free='free -h'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 # History
 HISTFILE=~/.zsh_history
@@ -38,12 +43,18 @@ zstyle ':vcs_info:git:*' formats '%b '
 setopt PROMPT_SUBST
 PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
-# Set up fzf key bindings and fuzzy completion
+# fzf (will be added automaticaly during installation)
 # eval "$(fzf --zsh)"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Fetch on startup
-afetch
+if [[ $(command -v afetch) ]]; then
+    afetch
+    printf "\n"
+fi
+
+# starship prompt
+eval "$(starship init zsh)"
 
 # Extract function
 function extract {
