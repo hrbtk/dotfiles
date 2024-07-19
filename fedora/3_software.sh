@@ -54,8 +54,3 @@ pipx ensurepath
 for file in ~/dotfiles/fedora/apps/app_*.sh; do
     bash "$file"
 done
-
-# Copy config
-# cp -r ~/dotfiles/.config/alacritty ~/.config/
-cp ~/.bashrc ~/.bashrc.bak
-cp ~/dotfiles/.bashrc ~/.bashrc
