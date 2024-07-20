@@ -3,14 +3,28 @@
 ## 0 Downloads
 
 ### 0.1 Nerd font
+
 Download and install nerd font from [here](https://github.com/ryanoasis/nerd-fonts)
 
 ### 0.2 Binaries
-Download [micro](https://github.com/zyedidia/micro/releases/latest), [exa](https://github.com/eza-community/eza/releases/latest) and [starship](https://github.com/starship/starship/releases/latest) binaries and place them under `C:\Program Files\Git\usr\bin\`
+
+Install _micro_, _eza_, _bat_ and _starship_ using _winget_ from PowerShell
+
+```shell
+winget install zyedidia.micro
+winget install sharkdp.bat
+winget install eza-community.eza
+winget install starship
+```
+
+**OR**
+
+Download [micro](https://github.com/zyedidia/micro/releases/latest), [exa](https://github.com/eza-community/eza/releases/latest), [bat](https://github.com/sharkdp/bat/releases/latest) and [starship](https://github.com/starship/starship/releases/latest) binaries and place them under `C:\Program Files\Git\usr\bin\`
 
 ## 1 Change Windows Terminal settings.json
 
 ### 1.1 Add colorschemes
+
 <details>
 <summary>Tokyo Night</summary>
 
@@ -85,32 +99,35 @@ Download [micro](https://github.com/zyedidia/micro/releases/latest), [exa](https
     "yellow": "#E0AF68"
 }
 ```
+
 </details>
 
 ### 1.2 Add new Profile with GUI and add colorScheme, font, icon and startingDirectory
+
 ```json
 {
-    "colorScheme": "Tokyo Night",
-    "commandline": "\"%PROGRAMFILES%\\Git\\usr\\bin\\bash.exe\" -i -l",
-    "font": 
-    {
-        "face": "MesloLGS Nerd Font",
-        "size": 16.0
-    },
-    "guid": "{2faca2e0-9dc5-4fd5-84b7-c35e4e72fbd3}",
-    "hidden": false,
-    "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-    "name": "MyGitBash",
-    "startingDirectory": "C:\\"
+  "colorScheme": "Tokyo Night",
+  "commandline": "\"%PROGRAMFILES%\\Git\\usr\\bin\\bash.exe\" -i -l",
+  "font": {
+    "face": "MesloLGS Nerd Font",
+    "size": 16.0
+  },
+  "guid": "{2faca2e0-9dc5-4fd5-84b7-c35e4e72fbd3}",
+  "hidden": false,
+  "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+  "name": "MyGitBash",
+  "startingDirectory": "C:\\"
 }
 ```
 
 ## 2 Change .bashrc
 
 ### 2.1 Cretate .bashrc
+
 `touch ~/.bashrc`
 
 ### 2.2 Add Aliases
+
 ```
 # Aliases
 alias ls='eza --color=always'
@@ -130,12 +147,12 @@ alias ....='cd ../../..'
 ```
 
 ### 2.3 Install fzf
+
 Install fzf using [git](https://github.com/junegunn/fzf?tab=readme-ov-file#using-git)
 
 ### 2.4 Add Starship prompt
+
 ```
 # starship
 eval "$(starship init bash)"
 ```
-
-
