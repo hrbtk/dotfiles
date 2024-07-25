@@ -37,9 +37,9 @@ export EDITOR=micro
 export VISUAL=micro
 
 # aliases
-alias ls='exa --color=always'
-alias ll='exa -alh --header --color=always --icons=always --git --group-directories-first'
-alias lt='exa -alh --header --color=always --icons=always --tree --group-directories-first'
+alias ls='eza --icons=always --color=always'
+alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
+alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
 alias gs='git status'
 alias gaa='git add .'
 alias gti='git'
@@ -51,16 +51,20 @@ alias free='free -h'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias cal='cal -m'
+alias lzd='lazydocker'
 
-# fzf
-if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
-	source /usr/share/fzf/shell/key-bindings.bash
-fi
+# fzf (will be added automaticaly during installation)
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # fetch
 if [[ $(command -v afetch) ]]; then
     afetch
     printf "\n"
+elif [[ $(command -v fastfetch) ]]; then
+    fastfetch
+elif [[ $(command -v neofetch) ]]; then
+    neofetch
 fi
 
 # starship prompt
@@ -68,6 +72,16 @@ eval "$(starship init bash)"
 
 
 ### FUNCTIONS
+
+# yazi
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 # extract
 function extract {
@@ -114,16 +128,3 @@ function extract {
         esac
     done
 }
-
-# yazi
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
