@@ -31,9 +31,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias ls='eza --color=always'
-alias ll='eza -alh --header --color=always --icons=always --git --group-directories-first'
-alias lt='eza -alh --header --color=always --icons=always --tree --group-directories-first'
+# export variables
+export PATH="$PATH:/home/herbatka/.local/bin"
+export EDITOR=micro
+export VISUAL=micro
+
+# aliases
+alias ls='exa --color=always'
+alias ll='exa -alh --header --color=always --icons=always --git --group-directories-first'
+alias lt='exa -alh --header --color=always --icons=always --tree --group-directories-first'
 alias gs='git status'
 alias gaa='git add .'
 alias gti='git'
@@ -46,71 +52,24 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-
 # fzf
-# if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
-# 	source /usr/share/fzf/shell/key-bindings.bash
-# fi
-
-# get current branch in git repo
-function parse_git_branch() {
-	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${BRANCH}" == "" ]
-	then
-		STAT=`parse_git_dirty`
-		echo "[${BRANCH}${STAT}] "
-	else
-		echo ""
-	fi
-}
-
-# get current status of git repo
-function parse_git_dirty {
-	status=`git status 2>&1 | tee`
-	dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-	untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-	ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
-	newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-	renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-	deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
-	bits=''
-	if [ "${renamed}" == "0" ]; then
-		bits=">${bits}"
-	fi
-	if [ "${ahead}" == "0" ]; then
-		bits="*${bits}"
-	fi
-	if [ "${newfile}" == "0" ]; then
-		bits="+${bits}"
-	fi
-	if [ "${untracked}" == "0" ]; then
-		bits="?${bits}"
-	fi
-	if [ "${deleted}" == "0" ]; then
-		bits="x${bits}"
-	fi
-	if [ "${dirty}" == "0" ]; then
-		bits="!${bits}"
-	fi
-	if [ ! "${bits}" == "" ]; then
-		echo " ${bits}"
-	else
-		echo ""
-	fi
-}
-
-# PS1 Customization
-# PS1="\[\e[32m\]\h\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[34m\]\u\[\e[m\] \W \$ "
-# PS1="\W $ "
-# PS1="\[\e[32;1m\]\u\[\e[m\]\[\e[36;1m\]@\[\e[m\]\[\e[34;1m\]\h\[\e[m\] \W \[\e[33m\]\`parse_git_branch\`\[\e[m\]\\$ "
-export PS1="\W \[\e[33m\]\`parse_git_branch\`\[\e[m\]\\$ "
-
-# Fetch
-if [[ $(command -v afetch) ]]; then
-    afetch
+if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
+	source /usr/share/fzf/shell/key-bindings.bash
 fi
 
-# Extract function
+# fetch
+if [[ $(command -v afetch) ]]; then
+    afetch
+    printf "\n"
+fi
+
+# starship prompt
+eval "$(starship init bash)"
+
+
+### FUNCTIONS
+
+# extract
 function extract {
  if [ $# -eq 0 ]; then
     # display usage if no parameters given
@@ -155,3 +114,16 @@ function extract {
         esac
     done
 }
+
+# yazi
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
