@@ -1,0 +1,56 @@
+layout {
+    pane split_direction="vertical" {
+        pane
+        pane
+    }
+    pane size=1 borderless=true {
+	    plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+	        format_left  "{mode}#[fg=white,bg=black,bold] {session} {tabs}"
+	        format_right "#[fg=black,bg=#b1bbfa]{datetime}"
+	        format_space "#[bg=gray]"
+
+	        hide_frame_for_single_pane "true"
+
+	        mode_normal			"#[fg=black,bg=blue,bold] {name} "
+	        mode_pane  			"#[fg=black,bg=green,bold] {name} "
+	        mode_locked        	"#[fg=black,bg=magenta,bold] {name} "
+	        mode_resize        	"#[fg=black,bg=blue,bold] {name} "
+	        mode_tab           	"#[fg=black,bg=yellow,bold] {name} "
+	        mode_rename_tab    	"#[fg=red,bg=yellow,bold] {name} "
+	        mode_rename_pane   	"#[fg=red,bg=green,bold] {name} "
+	        mode_session       	"#[fg=black,bg=blue,bold] {name} "
+	        mode_move          	"#[fg=black,bg=blue,bold] {name} "
+
+	        // formatting for inactive tabs
+			tab_normal              "#[fg=white] {name} "
+			tab_normal_fullscreen   "#[fg=white] {name} [] "
+			tab_normal_sync         "#[fg=white] {name} <> "
+
+			// formatting for the current active tab
+			tab_active              "#[fg=black,bg=white,bold,italic] {name} {floating_indicator}"
+			tab_active_fullscreen   "#[fg=black,bg=white,bold,italic] {name} {fullscreen_indicator}"
+			tab_active_sync         "#[fg=black,bg=white,bold,italic] {name} {sync_indicator}"
+
+			// separator between the tabs
+			tab_separator           "#[fg=gray,bg=black] | "
+
+			// format when renaming a tab
+			tab_rename              "#[fg=red,bg=black] {index} {name} {floating_indicator} "
+
+			// indicators
+			tab_sync_indicator       "<> "
+			tab_fullscreen_indicator "[] "
+			tab_floating_indicator   "⬚ "
+
+			// limit tab display count
+			tab_display_count         "3"  // limit to showing 3 tabs
+			tab_truncate_start_format "#[fg=red,bg=black] < +{count} ..."
+			tab_truncate_end_format   "#[fg=red,bg=black] ... +{count} >"
+
+
+	        datetime          "#[fg=black,bg=cyan,bold] {format} "
+	        datetime_format   "%A, %d %b %Y %H:%M"
+	        datetime_timezone "Europe/Warsaw"
+	    }
+	}
+}

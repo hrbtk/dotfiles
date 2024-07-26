@@ -1,0 +1,49 @@
+"lock/unlock"           "ctrl + g"
+
+"change focus of pane"  "ctrl + p + ←↓↑→/hjkl"
+"switch pane"		    "ctrl + p + p"
+"new pane"              "ctrl + p + n"
+"close pane"            "ctrl + p + x"
+"toggle fullscreen"     "ctrl + p + f"
+"toggle pane frames"    "ctrl + p + z"
+"toggle floating pane"  "ctrl + p + w"
+"toggle embed pane"     "ctrl + p + e"
+"rename pane"           "ctrl + p + c"
+
+"increase pane"     	"ctrl + p + r + ←↓↑→/hjkl"
+"decrease pane"     	"ctrl + p + r + HJKL"
+"increase pane size"    "ctrl + p + r + +"
+"decrease pane size"    "ctrl + p + r + -"
+
+"move pane"      		"ctrl + p + m + ←↓↑→/hjkl"
+"move pane to next pos" "ctrl + p + m + n"
+"move pane to prev pos" "ctrl + p + m + p"
+
+"new tab"               "ctrl + t + n"
+"rename tab"            "ctrl + t + r"
+"close tab"             "ctrl + t + x"
+"go to next tab"		"ctrl + t + ↓→/jl"
+"go to prev tab"   		"ctrl + t + ←↑/hk"
+"go to tab to 1..9"    	"ctrl + t + 1..9"
+"swich tab"	            "ctrl + t + tab"
+"move pane to new tab" 	"ctrl + t + b"
+"move pane left"       	"ctrl + t + ["
+"move pane right"      	"ctrl + t + ]"
+"sync tab"              "ctrl + t + s"
+
+"detach session"        "ctrl + o + d"
+"open session manager"  "ctrl + o + w"
+"quit zellij"           "ctrl + w"
+
+# TODO
+bind "Alt n" { NewPane; }
+bind "Alt i" { MoveTab "Left"; }
+bind "Alt o" { MoveTab "Right"; }
+bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
+bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+bind "Alt j" "Alt Down" { MoveFocus "Down"; }
+bind "Alt k" "Alt Up" { MoveFocus "Up"; }
+bind "Alt =" "Alt +" { Resize "Increase"; }
+bind "Alt -" { Resize "Decrease"; }
+bind "Alt [" { PreviousSwapLayout; }
+bind "Alt ]" { NextSwapLayout; }
