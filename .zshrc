@@ -4,9 +4,9 @@ source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source ~/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # export variables
-export PATH="$PATH:/home/herbatka/.local/bin"
-export EDITOR=micro
-export VISUAL=micro
+export PATH="$PATH:/home/herbatka/.local/bin:/home/herbatka/.scripts"
+export EDITOR=nvim
+export VISUAL=nvim
 
 # Aliases
 alias ls='eza --icons=always --color=always'
@@ -93,19 +93,6 @@ alias nvim-kick="NVIM_APPNAME=kickstartVim nvim"
 alias nvim-chad="NVIM_APPNAME=DrewNvim nvim"
 alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
 
-function nvims() {
-  items=("default" "kickstartVim" "LazyVim" "DrewNvim" "AstroNvim")
-  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
-  if [[ -z $config ]]; then
-    echo "Nothing selected"
-    return 0
-  elif [[ $config == "default" ]]; then
-    config=""
-  fi
-  NVIM_APPNAME=$config nvim $@
-}
-
-
 # Fetch on startup
 if [[ $(command -v afetch) ]]; then
     afetch
@@ -125,59 +112,3 @@ fi
 
 # starship prompt
 eval "$(starship init zsh)"
-
-# yazi
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-# Extract function
-function extract {
- if [ $# -eq 0 ]; then
-    # display usage if no parameters given
-    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz|.zlib|.cso|.zst>"
-    echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
- fi
-    for n in "$@"; do
-        if [ ! -f "$n" ]; then
-            echo "'$n' - file doesn't exist"
-            return 1
-        fi
-
-        case "${n%,}" in
-          *.cbt|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar)
-                       tar xvf "$n"       ;;
-          *.lzma)      unlzma ./"$n"      ;;
-          *.bz2)       bunzip2 ./"$n"     ;;
-          *.cbr|*.rar) unrar x -ad ./"$n" ;;
-          *.gz)        gunzip ./"$n"      ;;
-          *.cbz|*.epub|*.zip) unzip ./"$n"   ;;
-          *.z)         uncompress ./"$n"  ;;
-          *.7z|*.apk|*.arj|*.cab|*.cb7|*.chm|*.deb|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar|*.vhd)
-                       7z x ./"$n"        ;;
-          *.xz)        unxz ./"$n"        ;;
-          *.exe)       cabextract ./"$n"  ;;
-          *.cpio)      cpio -id < ./"$n"  ;;
-          *.cba|*.ace) unace x ./"$n"     ;;
-          *.zpaq)      zpaq x ./"$n"      ;;
-          *.arc)       arc e ./"$n"       ;;
-          *.cso)       ciso 0 ./"$n" ./"$n.iso" && \
-                            extract "$n.iso" && \rm -f "$n" ;;
-          *.zlib)      zlib-flate -uncompress < ./"$n" > ./"$n.tmp" && \
-                            mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n"   ;;
-          *.dmg)
-                      hdiutil mount ./"$n" -mountpoint "./$n.mounted" ;;
-          *.tar.zst)  tar -I zstd -xvf ./"$n"  ;;
-          *.zst)      zstd -d ./"$n"  ;;
-          *)
-                      echo "extract: '$n' - unknown archive method"
-                      return 1
-                      ;;
-        esac
-    done
-}
