@@ -1,1 +1,0 @@
-return { path = "/home/herbatka/dev/test/java-test", documents = {["type"]="leaf",["views"]={[1]={["selection"]={[1]=8,[2]=2,[3]=8,[4]=2},["text"]=false,["type"]="doc",["scroll"]={["y"]=0,["x"]=0},["active"]=true,["filename"]="Test.java"}},["active_view"]=1}, directories = {} }
