@@ -7,3 +7,6 @@
 [submodule ".config/zsh/plugins/zsh-autocomplete"]
 	path = .config/zsh/plugins/zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete.git
+[submodule ".config/zsh/plugins/fzf-git.sh"]
+	path = .config/zsh/plugins/fzf-git.sh
+	url = https://github.com/junegunn/fzf-git.sh.git
