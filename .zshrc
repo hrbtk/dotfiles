@@ -25,6 +25,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias cal='cal -m'
 alias lzd='lazydocker'
+alias lgit='lazygit'
 
 # History
 HISTFILE=~/.zsh_history
