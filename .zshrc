@@ -4,28 +4,66 @@ source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source ~/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # export variables
-export PATH="$PATH:/home/herbatka/.local/bin:/home/herbatka/.scripts"
-export EDITOR=nvim
-export VISUAL=nvim
+export PATH="$PATH:/home/herbatka/.local/bin:/home/herbatka/.scripts:/usr/local/go/bin"
+export EDITOR=hx
+export VISUAL=hx
 
+
+#######################################################
 # Aliases
-alias ls='eza --icons=always --color=always'
-alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
-alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
+#######################################################
+
 alias gs='git status'
 alias gaa='git add .'
 alias gti='git'
-alias e='micro'
-alias se='sudo micro'
 alias grep='grep --color=auto'
 alias df='df -h'
 alias free='free -h'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias mkdir='mkdir -pv'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+alias rmdir='rmdir -v'
 alias cal='cal -m'
-alias lzd='lazydocker'
-alias lgit='lazygit'
+
+# Alias for eza
+if [[ -x "$(command -v eza)" ]]; then
+  alias ls='eza --icons=always --color=always'
+  alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
+  alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
+else
+  alias ls='ls --color=always'
+  alias ll='ls -alh --color=always'
+  if [[ -x "$(command -v tree)" ]]; then
+    alias lt = 'tree -a'
+  fi
+fi
+
+# Alias for micro
+if [[ -x "$(command -v micro)" ]]; then
+  alias e='micro'
+  alias se='sudo micro'
+fi
+
+# Alias for lazydocker
+if [[ -x "$(command -v lazydocker)" ]]; then
+  alias lzd='lazydocker'
+fi
+
+# Alias for lazygit
+if [[ -x "$(command -v lazygit)" ]]; then
+  alias lzgit='lazygit'
+fi
+
+# Get local IP addresses
+if [[ -x "$(command -v ip)" ]]; then
+    alias iplocal="ip -br -c a"
+else
+    alias iplocal="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+fi
 
 # History
 HISTFILE=~/.zsh_history
@@ -87,22 +125,15 @@ _fzf_comprun() {
   esac
 }
 
-
-# Neovim switcher
-alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
-alias nvim-kick="NVIM_APPNAME=kickstartVim nvim"
-alias nvim-chad="NVIM_APPNAME=DrewNvim nvim"
-alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
-
 # Fetch on startup
-if [[ $(command -v afetch) ]]; then
-    afetch
-    printf "\n"
-elif [[ $(command -v fastfetch) ]]; then
-    fastfetch
-elif [[ $(command -v neofetch) ]]; then
-    neofetch
-fi
+# if [[ $(command -v afetch) ]]; then
+#     afetch
+#     printf "\n"
+# elif [[ $(command -v fastfetch) ]]; then
+#     fastfetch
+# elif [[ $(command -v neofetch) ]]; then
+#     neofetch
+# fi
 
 # Prompt
 # autoload -Uz vcs_info
@@ -113,3 +144,6 @@ fi
 
 # starship prompt
 eval "$(starship init zsh)"
+
+# Taskfile
+eval "$(task --completion zsh)"
