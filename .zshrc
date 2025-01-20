@@ -1,21 +1,24 @@
+
+#######################################################
 # Plugins
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source ~/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+#######################################################
 
-# export variables
+source "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# source "$HOME/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+
+#######################################################
+# Variables
+#######################################################
+
 export PATH="$PATH:/home/herbatka/.local/bin:/home/herbatka/.scripts:/usr/local/go/bin"
-export EDITOR=hx
-export VISUAL=hx
-
+export EDITOR=helix
+export VISUAL=helix
 
 #######################################################
 # Aliases
 #######################################################
 
-alias gs='git status'
-alias gaa='git add .'
-alias gti='git'
 alias grep='grep --color=auto'
 alias df='df -h'
 alias free='free -h'
@@ -29,6 +32,11 @@ alias rm='rm -iv'
 alias rmdir='rmdir -v'
 alias cal='cal -m'
 
+# Alias for git
+alias gs='git status'
+alias gaa='git add .'
+alias gti='git'
+
 # Alias for eza
 if [[ -x "$(command -v eza)" ]]; then
   alias ls='eza --icons=always --color=always'
@@ -38,7 +46,7 @@ else
   alias ls='ls --color=always'
   alias ll='ls -alh --color=always'
   if [[ -x "$(command -v tree)" ]]; then
-    alias lt = 'tree -a'
+    alias lt='tree -a'
   fi
 fi
 
@@ -65,22 +73,36 @@ else
     alias iplocal="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 fi
 
-# History
-HISTFILE=~/.zsh_history
-HISTSIZE=999
-SAVEHIST=1000
+#######################################################
+# History Configuration
+#######################################################
 
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt append_history
 setopt share_history
-setopt hist_expire_dups_first
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
 setopt hist_ignore_dups
-setopt hist_verify
+setopt hist_find_no_dups
+
+#######################################################
+# ZSH Keybindings
+#######################################################
 
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
-# Completions (commented out because of zsh-autocomplete plugin)
-# autoload -Uz compinit && compinit 
+# Completions
 autoload -U +X compinit && compinit
+
+
+#######################################################
+# FZF Setup
+#######################################################
 
 # fzf (will be added automaticaly during installation)
 # eval "$(fzf --zsh)"
@@ -125,24 +147,22 @@ _fzf_comprun() {
   esac
 }
 
-# Fetch on startup
-# if [[ $(command -v afetch) ]]; then
-#     afetch
-#     printf "\n"
-# elif [[ $(command -v fastfetch) ]]; then
-#     fastfetch
-# elif [[ $(command -v neofetch) ]]; then
-#     neofetch
-# fi
+#######################################################
+# Fetch
+#######################################################
+if [[ $(command -v afetch) ]]; then
+    afetch
+    printf "\n"
+elif [[ $(command -v fastfetch) ]]; then
+    fastfetch
+elif [[ $(command -v neofetch) ]]; then
+    neofetch
+fi
 
+#######################################################
 # Prompt
-# autoload -Uz vcs_info
-# precmd() { vcs_info }
-# zstyle ':vcs_info:git:*' formats '%b '
-# setopt PROMPT_SUBST
-# PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+#######################################################
 
-# starship prompt
 eval "$(starship init zsh)"
 
 # Taskfile
