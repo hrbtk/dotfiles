@@ -7,6 +7,7 @@ source "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # source "$HOME/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
+
 #######################################################
 # Variables
 #######################################################
@@ -14,6 +15,7 @@ source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 export PATH="$PATH:/home/herbatka/.local/bin:/home/herbatka/.scripts:/usr/local/go/bin"
 export EDITOR=helix
 export VISUAL=helix
+
 
 #######################################################
 # Aliases
@@ -74,10 +76,12 @@ else
     alias iplocal="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 fi
 
+
 #######################################################
-# History Configuration
+# ZSH Configuration
 #######################################################
 
+# History
 HISTSIZE=10000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
@@ -90,10 +94,7 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-#######################################################
-# ZSH Keybindings
-#######################################################
-
+# Keybindings
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
@@ -138,6 +139,11 @@ fi
 #######################################################
 
 eval "$(starship init zsh)"
+
+
+#######################################################
+# Other
+#######################################################
 
 # Taskfile
 eval "$(task --completion zsh)"
