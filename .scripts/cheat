@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ -x "$(command -v curl)" ]]; then
+	curl -s "cheat.sh/$1" | bat
+else
+	echo "curl command is missing!"
+fi 
