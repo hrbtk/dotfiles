@@ -1,0 +1,3 @@
+theme = tokyonight
+font-size = 18
+gtk-titlebar = true
