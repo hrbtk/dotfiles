@@ -1,0 +1,4 @@
+[/]
+binding='<Super>Return'
+command='flatpak run com.raggesilver.BlackBox'
+name='Launch BlackBox'
