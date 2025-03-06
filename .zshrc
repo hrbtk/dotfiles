@@ -1,5 +1,32 @@
 
 #######################################################
+# ZSH Configuration
+#######################################################
+
+# History
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt append_history
+setopt share_history
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Keybindings
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
+
+# Completions
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+autoload -U +X compinit && compinit
+
+
+#######################################################
 # Plugins
 #######################################################
 
@@ -20,8 +47,8 @@ zinit light zsh-users/zsh-completions
 #######################################################
 
 export PATH="$PATH:/home/herbatka/.local/bin:/home/herbatka/.scripts:/usr/local/go/bin"
-export EDITOR=helix
-export VISUAL=helix
+export EDITOR=hx
+export VISUAL=hx
 
 
 #######################################################
@@ -82,31 +109,6 @@ if [[ -x "$(command -v ip)" ]]; then
 else
     alias iplocal="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 fi
-
-
-#######################################################
-# ZSH Configuration
-#######################################################
-
-# History
-HISTSIZE=10000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
-setopt append_history
-setopt share_history
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
-
-# Keybindings
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
-
-# Completions
-autoload -U +X compinit && compinit
 
 
 #######################################################
