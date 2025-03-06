@@ -23,6 +23,8 @@ bindkey "^[[B" history-search-forward
 # Completions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 autoload -U +X compinit && compinit
 
 
@@ -40,7 +42,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
-
+zinit light Aloxaf/fzf-tab
 
 #######################################################
 # Variables
@@ -115,20 +117,19 @@ fi
 # FZF Setup
 #######################################################
 
-# fzf (will be added automaticaly during installation)
-# eval "$(fzf --zsh)"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Shell integration
+eval "$(fzf --zsh)"
 
 # fzf for git
 source ~/fzf-git.sh/fzf-git.sh
 
-show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+# show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+# export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+# export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+# export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
 
 #######################################################
@@ -167,3 +168,5 @@ function yy() {
 	rm -f -- "$tmp"
 }
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
