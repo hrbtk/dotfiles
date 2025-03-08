@@ -124,7 +124,7 @@ fi
 eval "$(fzf --zsh)"
 
 # fzf for git
-source "$HOME/fzf-git.sh/fzf-git.sh"
+[ ! -d "$HOME/fzf-git.sh" ] && source "$HOME/fzf-git.sh/fzf-git.sh"
 
 # show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
