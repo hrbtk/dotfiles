@@ -11,4 +11,3 @@ if [ -f $HOME/.zshrc ]; then
     mv $HOME/.zshrc $HOME/.zshrc.bak
 fi
 cp $HOME/dotfiles/.zshrc $HOME/.zshrc
-cp -r $HOME/dotfiles/.config/zsh $HOME/.config/zsh

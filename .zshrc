@@ -4,8 +4,8 @@
 
 # Install zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+[ ! -d "$ZINIT_HOME" ] && mkdir -p "$(dirname "$ZINIT_HOME")"
+[ ! -d "$ZINIT_HOME/.git" ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Add plugins
@@ -21,7 +21,7 @@ zinit light Aloxaf/fzf-tab
 
 # History
 HISTSIZE=10000
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.zsh_history"
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt append_history
@@ -40,7 +40,7 @@ bindkey "^[[B" history-search-forward
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color $realpath"
 
 autoload -Uz compinit && compinit
 
@@ -124,7 +124,7 @@ fi
 eval "$(fzf --zsh)"
 
 # fzf for git
-source ~/fzf-git.sh/fzf-git.sh
+source "$HOME/fzf-git.sh/fzf-git.sh"
 
 # show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
@@ -151,7 +151,10 @@ fi
 # Prompt
 #######################################################
 
-eval "$(starship init zsh)"
+
+if [[ $(command -v starship) ]]; then
+  eval "$(starship init zsh)"
+fi
 
 
 #######################################################
@@ -159,7 +162,10 @@ eval "$(starship init zsh)"
 #######################################################
 
 # Taskfile
-eval "$(task --completion zsh)"
+
+if [[ $(command -v task) ]]; then
+  eval "$(task --completion zsh)"
+fi
 
 # Yazi
 function yy() {
@@ -172,4 +178,4 @@ function yy() {
 }
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
