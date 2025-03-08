@@ -124,15 +124,9 @@ fi
 eval "$(fzf --zsh)"
 
 # fzf for git
-[ ! -d "$HOME/fzf-git.sh" ] && source "$HOME/fzf-git.sh/fzf-git.sh"
-
-# show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-
-# export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
-# export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-# export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+if [ -f "$HOME/fzf-git.sh/fzf-git.sh" ]; then
+    source "$HOME/fzf-git.sh/fzf-git.sh"
+fi
 
 
 #######################################################
@@ -178,4 +172,3 @@ function yy() {
 }
 
 
-[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
