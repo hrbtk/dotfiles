@@ -42,3 +42,7 @@ if [[ -x "$(command -v kitty)" ]]; then
     cp -r "$HOME/dotfiles/.config/kitty" "$HOME/.config"
 fi
 
+# zed
+if [[ -x "$(command -v zed)" ]]; then
+    cp -r "$HOME/dotfiles/.config/zed" "$HOME/.config"
+fi
