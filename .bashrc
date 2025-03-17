@@ -31,33 +31,74 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# export variables
+#######################################################
+# Variables
+#######################################################
 export PATH="$PATH:/home/herbatka/.local/bin"
 export EDITOR=micro
 export VISUAL=micro
 
-# aliases
-alias ls='eza --icons=always --color=always'
-alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
-alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
-alias gs='git status'
-alias gaa='git add .'
-alias gti='git'
-alias e='micro'
-alias se='sudo micro'
+#######################################################
+# Aliases
+#######################################################
 alias grep='grep --color=auto'
 alias df='df -h'
 alias free='free -h'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias mkdir='mkdir -pv'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+alias rmdir='rmdir -v'
 alias cal='cal -m'
-alias lzd='lazydocker'
 
-# fzf (will be added automaticaly during installation)
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Alias for git
+alias gs='git status'
+alias gaa='git add .'
+alias gti='git'
+alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 
-# fetch
+# Alias for eza
+if [[ -x "$(command -v eza)" ]]; then
+  alias ls='eza --icons=always --color=always'
+  alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
+  alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
+else
+  alias ls='ls --color=always'
+  alias ll='ls -alh --color=always'
+  if [[ -x "$(command -v tree)" ]]; then
+    alias lt='tree -a'
+  fi
+fi
+
+# Alias for micro
+if [[ -x "$(command -v micro)" ]]; then
+  alias e='micro'
+  alias se='sudo micro'
+fi
+
+# Alias for lazydocker
+if [[ -x "$(command -v lazydocker)" ]]; then
+  alias lzd='lazydocker'
+fi
+
+# Alias for lazygit
+if [[ -x "$(command -v lazygit)" ]]; then
+  alias lzgit='lazygit'
+fi
+
+# Get local IP addresses
+if [[ -x "$(command -v ip)" ]]; then
+    alias iplocal="ip -br -c a"
+else
+    alias iplocal="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+fi
+
+#######################################################
+# Fetch
+#######################################################
 if [[ $(command -v afetch) ]]; then
     afetch
     printf "\n"
@@ -67,12 +108,17 @@ elif [[ $(command -v neofetch) ]]; then
     neofetch
 fi
 
-# starship prompt
-eval "$(starship init bash)"
+#######################################################
+# Prompt
+#######################################################
+if [[ $(command -v starship) ]]; then
+  eval "$(starship init zsh)"
+fi
 
 
-### FUNCTIONS
-
+#######################################################
+# Other
+#######################################################
 # yazi
 function yy() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
