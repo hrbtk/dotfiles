@@ -8,14 +8,20 @@ Download and install nerd font from [here](https://github.com/ryanoasis/nerd-fon
 
 ### 0.2 Binaries
 
-Install _micro_, _eza_, _bat_, _fzf_ and _starship_ using _winget_ from PowerShell
+Install _micro_, _helix_, _eza_, _bat_, _fzf_ and _starship_ using _winget_ from PowerShell
 
 ```shell
 winget install zyedidia.micro
+winget install Helix.Helix
 winget install sharkdp.bat
 winget install eza-community.eza
 winget install starship
 winget install fzf
+```
+### 0.3 Clone fzf for git
+
+```
+git clone https://github.com/junegunn/fzf-git.sh ~/.config/git/fzf-git.sh
 ```
 
 ## 1 Change Windows Terminal settings.json
@@ -99,56 +105,10 @@ winget install fzf
 
 </details>
 
-### 1.2 Add new Profile with GUI and add colorScheme, font, icon and startingDirectory
-
-```json
-{
-  "colorScheme": "Tokyo Night",
-  "commandline": "\"%PROGRAMFILES%\\Git\\usr\\bin\\bash.exe\" -i -l",
-  "font": {
-    "face": "MesloLGS Nerd Font",
-    "size": 16.0
-  },
-  "guid": "{2faca2e0-9dc5-4fd5-84b7-c35e4e72fbd3}",
-  "hidden": false,
-  "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-  "name": "MyGitBash",
-  "startingDirectory": "C:\\"
-}
-```
 
 ## 2 Change .bashrc
 
-### 2.1 Cretate .bashrc
-
-`touch ~/.bashrc`
-
-### 2.2 Add Aliases
-
-```
-# Aliases
-alias ls='eza --color=always'
-alias ll='eza -alh --header --color=always --icons=always --git --group-directories-first'
-alias lt='eza -alh --header --color=always --icons=always --tree --group-directories-first'
-alias gs='git status'
-alias gaa='git add .'
-alias gti='git'
-alias e='micro'
-alias se='sudo micro'
-alias grep='grep --color=auto'
-alias df='df -h'
-alias free='free -h'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-```
-
-### 2.3 Add Starship prompt
-
-```
-# starship
-eval "$(starship init bash)"
-```
+Copy .bashrc file to $HOME
 
 ## 3 git config
 
