@@ -8,18 +8,15 @@ Download and install nerd font from [here](https://github.com/ryanoasis/nerd-fon
 
 ### 0.2 Binaries
 
-Install _micro_, _eza_, _bat_ and _starship_ using _winget_ from PowerShell
+Install _micro_, _eza_, _bat_, _fzf_ and _starship_ using _winget_ from PowerShell
 
 ```shell
 winget install zyedidia.micro
 winget install sharkdp.bat
 winget install eza-community.eza
 winget install starship
+winget install fzf
 ```
-
-**OR**
-
-Download [micro](https://github.com/zyedidia/micro/releases/latest), [exa](https://github.com/eza-community/eza/releases/latest), [bat](https://github.com/sharkdp/bat/releases/latest) and [starship](https://github.com/starship/starship/releases/latest) binaries and place them under `C:\Program Files\Git\usr\bin\`
 
 ## 1 Change Windows Terminal settings.json
 
@@ -146,13 +143,21 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 ```
 
-### 2.3 Install fzf
-
-Install fzf using [git](https://github.com/junegunn/fzf?tab=readme-ov-file#using-git)
-
-### 2.4 Add Starship prompt
+### 2.3 Add Starship prompt
 
 ```
 # starship
 eval "$(starship init bash)"
+```
+
+## 3 git config
+
+Add to ~/.gitconfig
+```
+[user]
+  name =
+  email =
+[core]
+  autocrlf = input
+  longpaths = true  
 ```
