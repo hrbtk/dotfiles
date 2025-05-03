@@ -129,7 +129,7 @@ function yy() {
 		fi
 		rm -f -- "$tmp"
 	else
-	    echo("Yazi is not installed")
+	    echo "Yazi is not installed"
 	fi
 	
 }
