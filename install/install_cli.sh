@@ -35,4 +35,4 @@ PACKAGES="git
 	cargo"
 
 # Install packages
-echo("$INSTALLCOMM $PACKAGES")
+echo "$INSTALLCOMM $PACKAGES"
