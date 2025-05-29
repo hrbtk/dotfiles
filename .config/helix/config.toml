@@ -1,22 +1,86 @@
 theme = "base16_transparent"
 
-[keys.normal]
-esc = ["collapse_selection", "keep_primary_selection"]
-
 [editor]
 line-number = "relative"
-scrolloff = 4
-auto-save = true
-true-color = true
+bufferline = "multiple"
+scrolloff = 8
+color-modes = true
+true-color = true  
+undercurl = true
+end-of-line-diagnostics = "hint"
+# rulers = [80, 120]
+# cursorline = true
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
 
-[editor.file-picker]
-hidden = false
+[editor.statusline]
+left = ["mode", "spinner", "read-only-indicator", "file-modification-indicator"]
+center = ["file-name", "version-control"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 [editor.lsp]
-display-messages = true
+goto-reference-include-declaration = false
 display-inlay-hints = true
+display-progress-messages = true
+
+[editor.indent-guides]
+render = true
+
+[editor.soft-wrap]
+enable = true
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors on the cursorline inline
+
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection"]
+H = ":buffer-previous"
+L = ":buffer-next"
+X = "select_line_above"
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+C-k = "page_cursor_half_up"
+C-j = "page_cursor_half_down"
+ret = "goto_word"
+
+[keys.insert]
+C-h = ["jump_view_left", "insert_mode"]
+C-l = ["jump_view_right", "insert_mode"]
+
+[keys.select]
+ret = "extend_to_word"
+X = "select_line_above"
+
+[keys.normal.space]
+space = "file_picker"
+B = [":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"]
+
+[keys.normal.backspace]
+backspace = "suspend"
+# Yazi
+e = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
+  ':set mouse false',
+  ':set mouse true',
+]
+# Lazygit
+g = [
+  ":write-all",
+  ":insert-output lazygit >/dev/tty",
+  ":redraw",
+  ":set mouse false",
+  ":set mouse true",
+  ":reload-all"
+]
+
