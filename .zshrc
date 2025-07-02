@@ -35,6 +35,9 @@ setopt hist_find_no_dups
 # Keybindings
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey -v
 
 # Completions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -54,6 +57,7 @@ zinit cdreplay -q
 export PATH="$PATH:/home/herbatka/.local/bin:/home/herbatka/.scripts:/usr/local/go/bin"
 export EDITOR=hx
 export VISUAL=hx
+export HELIX_RUNTIME=~/dev/helix/runtime
 
 
 #######################################################
@@ -106,6 +110,11 @@ fi
 # Alias for lazygit
 if [[ -x "$(command -v lazygit)" ]]; then
   alias lzgit='lazygit'
+fi
+
+
+if [ -f ~/.config/nvim-lazyvim/init.lua ]; then
+  alias lvim="NVIM_APPNAME=nvim-lazyvim nvim"
 fi
 
 # Get local IP addresses
