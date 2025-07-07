@@ -77,11 +77,16 @@ e = [
 ]
 # Lazygit
 g = [
-  ":write-all",
-  ":insert-output lazygit >/dev/tty",
-  ":redraw",
-  ":set mouse false",
-  ":set mouse true",
-  ":reload-all"
+  ':set mouse false',
+  ':insert-output lazygit',
+  ':redraw',
+  ':set mouse true',
+  ':open /tmp/lazygit_out.txt',
+  'select_all',
+  'split_selection_on_newline',
+  'goto_file',
+  ':buffer-close! /tmp/lazygit_out.txt',
+  ':sh rm -f /tmp/lazygit_out.txt',
+  ':rla'
 ]
 
