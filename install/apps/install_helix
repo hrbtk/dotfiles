@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# check helix directory
+
+
+
+
+
+# clone repo
+clone_helix() {
+	
+}
