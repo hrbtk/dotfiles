@@ -7,7 +7,7 @@ if [ -f "$HOME/.bashrc" ]; then
 fi
 cp "$HOME/dotfiles/.bashrc" "$HOME/.bashrc"
 
-if [ -f "$HOME/.zshrc"]; then
+if [ -f "$HOME/.zshrc" ]; then
     mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
 fi
 cp "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"

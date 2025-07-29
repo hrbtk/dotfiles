@@ -9,7 +9,7 @@ elif [[ -x "$(command -v apt)" ]]; then
   INSTALLCOMM=$(sudo apt install -y)
 elif [[ -x "$(command -v yay)" ]]; then
   echo "Arch Yay"
-  INSTALLCOMM=$(sudo yay -S --noconfirm)
+  INSTALLCOMM=$(yay -S --noconfirm)
 elif [[ -x "$(command -v pacman)" ]]; then
   echo "Arch Pacman"
   INSTALLCOMM=$(sudo pacman -S --noconfirm)
@@ -30,6 +30,7 @@ PACKAGES="git
 	ripgrep
 	btop
 	helix
+	neovim
 	unzip
 	ghostty
 	cargo"
