@@ -1,9 +1,7 @@
-
 vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = 'main' },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
+	{ src = "https://github.com/prichrd/netrw.nvim" },
 })
 
 vim.cmd("colorscheme tokyonight")
@@ -62,6 +60,9 @@ miniclue.setup({
 
 		-- `s` key
 		{ mode = 'n', keys = 's' },
+
+		-- `c` key
+		{ mode = 'n', keys = 'c' },
 	},
 
 	clues = {
@@ -74,6 +75,7 @@ miniclue.setup({
 		-- mapping grous
 		{ mode = 'n', keys = '<Leader>t', desc = '+Tabs' },
 		{ mode = 'n', keys = '<Leader>f', desc = '+Pickers' },
+		{ mode = 'n', keys = '<Leader>l', desc = '+LSP' },
 	},
 	window = {
 		config = {
@@ -84,15 +86,17 @@ miniclue.setup({
 })
 local hipatterns = require('mini.hipatterns')
 hipatterns.setup({
-  highlighters = {
-    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-    fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-    hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
-    todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
-    note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+	highlighters = {
+		-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+		fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+		hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+		todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+		note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
 
-    -- Highlight hex color strings (`#rrggbb`) using that color
-    hex_color = hipatterns.gen_highlighter.hex_color(),
-  },
+		-- Highlight hex color strings (`#rrggbb`) using that color
+		hex_color = hipatterns.gen_highlighter.hex_color(),
+	},
 })
-
+require "netrw".setup({
+	use_devicons = true,
+})

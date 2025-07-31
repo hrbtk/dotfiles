@@ -8,58 +8,84 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- misc
-map("n", "<leader>w", ":write<CR>", { desc = "Save" })
-map("n", "<leader>q", ":quit<CR>", { desc = "Quit" })
+map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+map("n", "<leader>c", "gcc", { desc = "Comment line" })
 map("n", "<BS><BS>", ":suspend<CR>", { desc = "Suspend" })
-map("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format with LSP" })
-map('n', '<Esc>', '<Cmd>nohlsearch<CR>', { silent = true }) -- clear search highlight
+-- map("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format with LSP" })
+map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
+-- map({ 'n', 'v' }, '<leader>la', vim.lsp.buf.code_action, { desc = "Code actions", opts })
 
 -- reload config
 map("n", "<leader><leader>", ":source %<CR>", { desc = "Source current file" })
 map("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { desc = "Reload config" })
+
+-- better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 -- Pick bindings
 map("n", "<leader>ff", ":Pick files<CR>", { desc = "File picker" })
 map("n", "<leader>fh", ":Pick help<CR>", { desc = "Help picker" })
 map("n", "<leader>fb", ":Pick buffers<CR>", { desc = "Buffer picker" })
 map("n", "<leader>fg", ":Pick grep_live tool='rg'<CR>", { desc = "Live Grep" })
-map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
-map("n", "<leader>'", ":Pick resume<CR>", { desc = "Open last picker" })
-map("n", "<leader>d", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
+-- map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
+map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
+map("n", "<leader>f'", ":Pick resume<CR>", { desc = "Open last picker" })
+map("n", "<leader>fd", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
+map("n", "<leader>fi", ":Pick git_hunks<CR>", { desc = "Git diff picker" })
+
+-- tabs
+map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
+map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
+map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
+map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
+map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- Tab bindings
-map("n", "<leader>tc", ":tabnew<CR>", { desc = "Create new tab" })                -- space+t creates new tab
-map("n", "<leader>tx", ":tabclose<CR>", { desc = "Close current tab" })           -- space+x closes current tab
-map("n", "<leader>tp", ":tabprevious<CR>", { desc = "Move to the previous tab" }) -- space+pt moves to previous tab
-map("n", "<leader>tn", ":tabnext<CR>", { desc = "Move to the next tab" })         -- space+nt moves to next tab
+-- map("n", "<leader>tc", ":tabnew<CR>", { desc = "Create new tab" })                -- space+t creates new tab
+-- map("n", "<leader>tx", ":tabclose<CR>", { desc = "Close current tab" })           -- space+x closes current tab
+-- map("n", "<leader>tp", ":tabprevious<CR>", { desc = "Move to the previous tab" }) -- space+pt moves to previous tab
+-- map("n", "<leader>tn", ":tabnext<CR>", { desc = "Move to the next tab" })         -- space+nt moves to next tab
+--
+-- windows
+map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
+map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- easy split generation
-map("n", "<leader>v", ":vsplit", { desc = "Create a vertical split" })  -- space+v creates a veritcal split
-map("n", "<leader>s", ":split", { desc = "Create a horisontal split" }) -- space+s creates a horizontal split
+-- map("n", "<leader>v", ":vsplit", { desc = "Create a vertical split" })  -- space+v creates a veritcal split
+-- map("n", "<leader>s", ":split", { desc = "Create a horisontal split" }) -- space+s creates a horizontal split
 
--- easy split navigation
-map("n", "<C-h>", "<C-w>h", { desc = "Switch to the left split" })   -- control+h switches to left split
-map("n", "<C-j>", "<C-w>j", { desc = "Switch to the bottom split" }) -- control+j switches to bottom split
-map("n", "<C-k>", "<C-w>k", { desc = "Switch to the top split" })    -- control+k switches to top split
-map("n", "<C-l>", "<C-w>l", { desc = "Switch to the right split" })  -- control+l switches to right split
+-- easy window navigation
+map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })  -- control+h switches to left split
+map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true }) -- control+j switches to bottom split
+map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true }) -- control+k switches to top split
+map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true }) -- control+l switches to right split
 
--- adjust split sizes easier
-map("n", "<C-Left>", ":vertical resize +3<CR>", { desc = "Resize vertical split +" })  -- Control+Left resizes vertical split +
-map("n", "<C-Right>", ":vertical resize -3<CR>", { desc = "Resize vertical split +" }) -- Control+Right resizes vertical split -
+-- adjust window sizes easier
+map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- buffer navigation
 map("n", "<leader>x", "<Esc>:bprevious<bar>bdelete #<Return>", { desc = "Delete current buffer" }) -- Space+d delets current buffer
 map("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer" })                                          -- Go to the next buffer
 map("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer" })                                -- Go to the previous buffer
 
-
 -- Visual Maps
 map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>", { desc = "Replace all instances of highlighted words" }) -- Replace all instances of highlighted words
 map("v", "<C-s>", ":sort<CR>", { desc = "Sort highlighted text in visual mode with Control+S" })                -- Sort highlighted text in visual mode with Control+S
 
 -- Scrolling remaps
-map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-f>", "<C-f>zz")
+map("n", "<C-b>", "<C-b>zz")
 
 -- Copy/paste with system clipboard
 map({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
@@ -69,3 +95,41 @@ map("x", "<leader>p", '"+P', { desc = "Paste from system clipboard" })
 
 -- Terminal keybindings
 map("t", "<esc><esc>", "<C-\\><C-n>") -- escape terminal with double escape
+
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+
+
+-- LSP
+map("n", "<leader>lD", ":Pick lsp scope='definition'<cr>", { desc = "[G]oto [D]efinition" })
+map("n", "<leader>fR", ":Pick lsp scope='references'<cr>", { desc = "References" })
+map("n", "<leader>lI", ":Pick lsp scope='implementation'<cr>", { desc = "[G]oto [I]mplementation" })
+map("n", "<leader>lt", ":Pick lsp scope='type_definition'<cr>", { desc = "Type Definition" })
+--map("n", "<leader>ds", "<cmd>:Pick lsp scope='document_symbol'<cr>", { desc = "[D]ocument [S]ymbols" })
+map("n", '<leader>la', vim.lsp.buf.signature_help, { desc = 'Arguments popup' })
+map("n", '<leader>ld', vim.diagnostic.open_float, { desc = 'Diagnostics popup' })
+map("n", '<leader>lf', vim.lsp.buf.format, { desc = 'Format' })
+map("n", '<leader>li', vim.lsp.buf.hover, { desc = 'Information' })
+map("n", '<leader>lR', vim.lsp.buf.references, { desc = 'References' })
+map("n", '<leader>ls', vim.lsp.buf.definition, { desc = 'Source definition' })
+
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity })
+	end
+end
+map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
