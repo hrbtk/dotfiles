@@ -15,7 +15,9 @@ local ts_parsers = {
 	"go",
 	"gomod",
 	"gosum",
+	"help",
 	"html",
+	"java",
 	"javascript",
 	"json",
 	"lua",
@@ -30,7 +32,6 @@ local ts_parsers = {
 	"typst",
 	"vim",
 	"yaml",
-	"java",
 }
 local nts = require("nvim-treesitter")
 nts.install(ts_parsers)

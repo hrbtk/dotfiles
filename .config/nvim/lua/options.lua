@@ -1,15 +1,21 @@
 -- Leader key
-vim.g.mapleader      = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader       = " "
+vim.g.maplocalleader  = "\\"
+
+-- Netrw
+vim.g.netrw_liststyle = 3 -- use tree mode
+
+-- Currently causes bug with clipboard
+-- vim.g.netrw_banner    = 0 -- hide Netrw banner
 
 -- General
-vim.o.undofile       = false
-vim.o.swapfile       = false
-vim.o.compatible     = false -- turn off vi compatibility mode
-vim.o.syntax         = "ON"
-vim.o.backup         = false
-vim.o.writebackup    = false
-vim.o.mouse          = 'a'           -- enable the mouse in all modes
+vim.o.undofile        = false
+vim.o.swapfile        = false
+vim.o.compatible      = false -- turn off vi compatibility mode
+vim.o.syntax          = "ON"
+vim.o.backup          = false
+vim.o.writebackup     = false
+vim.o.mouse           = 'a'          -- enable the mouse in all modes
 vim.cmd('filetype plugin indent on') -- Enable all filetype plugins
 
 -- Appearence

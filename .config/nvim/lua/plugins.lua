@@ -1,15 +1,18 @@
 vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
-	{ src = "https://github.com/prichrd/netrw.nvim" },
+	-- { src = "https://github.com/prichrd/netrw.nvim" }
 })
 
 vim.cmd("colorscheme tokyonight")
 
+-- require "netrw".setup({
+-- 	use_devicons = true,
+-- })
 require "mini.pick".setup()
 require "mini.move".setup()
 require "mini.starter".setup()
-require "mini.tabline".setup()
+-- require "mini.tabline".setup()
 require "mini.extra".setup()
 require "mini.completion".setup()
 require "mini.pairs".setup()
@@ -60,9 +63,6 @@ miniclue.setup({
 
 		-- `s` key
 		{ mode = 'n', keys = 's' },
-
-		-- `c` key
-		{ mode = 'n', keys = 'c' },
 	},
 
 	clues = {
@@ -73,7 +73,8 @@ miniclue.setup({
 		miniclue.gen_clues.windows(),
 		miniclue.gen_clues.z(),
 		-- mapping grous
-		{ mode = 'n', keys = '<Leader>t', desc = '+Tabs' },
+		{ mode = 'n', keys = '<Leader><tab>', desc = '+Tabs' },
+		{ mode = 'n', keys = '<Leader>w', desc = '+Windows' },
 		{ mode = 'n', keys = '<Leader>f', desc = '+Pickers' },
 		{ mode = 'n', keys = '<Leader>l', desc = '+LSP' },
 	},
@@ -96,7 +97,4 @@ hipatterns.setup({
 		-- Highlight hex color strings (`#rrggbb`) using that color
 		hex_color = hipatterns.gen_highlighter.hex_color(),
 	},
-})
-require "netrw".setup({
-	use_devicons = true,
 })

@@ -1,23 +1,17 @@
--- Functional wrapper for mapping custom keybindings
-local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.keymap.set(mode, lhs, rhs, options)
-end
+local map = vim.keymap.set
 
 -- misc
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
-map("n", "<leader>c", "gcc", { desc = "Comment line" })
 map("n", "<BS><BS>", ":suspend<CR>", { desc = "Suspend" })
--- map("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format with LSP" })
 map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
--- map({ 'n', 'v' }, '<leader>la', vim.lsp.buf.code_action, { desc = "Code actions", opts })
 
 -- reload config
 map("n", "<leader><leader>", ":source %<CR>", { desc = "Source current file" })
 map("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { desc = "Reload config" })
+
+-- Comment
+map("n", "<leader>c", "gcc", { desc = "toggle comment", remap = true })
+map("v", "<leader>c", "gc", { desc = "toggle comment", remap = true })
 
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -28,15 +22,30 @@ map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = tru
 -- Pick bindings
 map("n", "<leader>ff", ":Pick files<CR>", { desc = "File picker" })
 map("n", "<leader>fh", ":Pick help<CR>", { desc = "Help picker" })
-map("n", "<leader>fb", ":Pick buffers<CR>", { desc = "Buffer picker" })
+map("n", "<leader>b", ":Pick buffers<CR>", { desc = "Buffer picker" })
 map("n", "<leader>fg", ":Pick grep_live tool='rg'<CR>", { desc = "Live Grep" })
--- map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
-map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
 map("n", "<leader>f'", ":Pick resume<CR>", { desc = "Open last picker" })
 map("n", "<leader>fd", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
 map("n", "<leader>fi", ":Pick git_hunks<CR>", { desc = "Git diff picker" })
+map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
 
--- tabs
+-- map("n", "<leader>fw", function()
+-- 	local word = vim.fn.expand("<cword>")
+-- 	MiniPick.builtin.grep({
+-- 		tool = 'rg',
+-- 		pattern = word
+-- 	})
+-- end, { desc = "Live Grep word" })
+-- map("n", "<leader>fW", function()
+-- 	local word = vim.fn.expand("<cWORD>")
+-- 	MiniPick.builtin.grep({
+-- 		tool = 'rg',
+-- 		pattern = word
+-- 	})
+-- end, { desc = "Live Grep WORD" })
+-- map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
+
+-- Tabs bindings
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
@@ -45,20 +54,10 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
--- Tab bindings
--- map("n", "<leader>tc", ":tabnew<CR>", { desc = "Create new tab" })                -- space+t creates new tab
--- map("n", "<leader>tx", ":tabclose<CR>", { desc = "Close current tab" })           -- space+x closes current tab
--- map("n", "<leader>tp", ":tabprevious<CR>", { desc = "Move to the previous tab" }) -- space+pt moves to previous tab
--- map("n", "<leader>tn", ":tabnext<CR>", { desc = "Move to the next tab" })         -- space+nt moves to next tab
---
--- windows
-map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
-map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+-- Windows
+map("n", "<leader>ws", "<C-W>s", { desc = "Split Window Below", remap = true })
+map("n", "<leader>wv", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-
--- easy split generation
--- map("n", "<leader>v", ":vsplit", { desc = "Create a vertical split" })  -- space+v creates a veritcal split
--- map("n", "<leader>s", ":split", { desc = "Create a horisontal split" }) -- space+s creates a horizontal split
 
 -- easy window navigation
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })  -- control+h switches to left split
@@ -90,13 +89,12 @@ map("n", "<C-b>", "<C-b>zz")
 -- Copy/paste with system clipboard
 map({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
 map('n', '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
--- - Paste in Visual with `P` to not copy selected text (`:h v_P`)
 map("x", "<leader>p", '"+P', { desc = "Paste from system clipboard" })
 
 -- Terminal keybindings
 map("t", "<esc><esc>", "<C-\\><C-n>") -- escape terminal with double escape
 
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+-- Search results
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
 map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
@@ -104,13 +102,11 @@ map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search R
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
-
 -- LSP
 map("n", "<leader>lD", ":Pick lsp scope='definition'<cr>", { desc = "[G]oto [D]efinition" })
 map("n", "<leader>fR", ":Pick lsp scope='references'<cr>", { desc = "References" })
 map("n", "<leader>lI", ":Pick lsp scope='implementation'<cr>", { desc = "[G]oto [I]mplementation" })
 map("n", "<leader>lt", ":Pick lsp scope='type_definition'<cr>", { desc = "Type Definition" })
---map("n", "<leader>ds", "<cmd>:Pick lsp scope='document_symbol'<cr>", { desc = "[D]ocument [S]ymbols" })
 map("n", '<leader>la', vim.lsp.buf.signature_help, { desc = 'Arguments popup' })
 map("n", '<leader>ld', vim.diagnostic.open_float, { desc = 'Diagnostics popup' })
 map("n", '<leader>lf', vim.lsp.buf.format, { desc = 'Format' })
@@ -126,7 +122,6 @@ local diagnostic_goto = function(next, severity)
 		go({ severity = severity })
 	end
 end
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
