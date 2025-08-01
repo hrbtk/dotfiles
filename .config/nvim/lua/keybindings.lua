@@ -1,9 +1,9 @@
 local map = vim.keymap.set
 
 -- misc
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<BS><BS>", ":suspend<CR>", { desc = "Suspend" })
 map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
+map("t", "<esc><esc>", "<C-\\><C-n>") -- escape terminal with double escape
 
 -- reload config
 map("n", "<leader><leader>", ":source %<CR>", { desc = "Source current file" })
@@ -28,21 +28,6 @@ map("n", "<leader>f'", ":Pick resume<CR>", { desc = "Open last picker" })
 map("n", "<leader>fd", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
 map("n", "<leader>fi", ":Pick git_hunks<CR>", { desc = "Git diff picker" })
 map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
-
--- map("n", "<leader>fw", function()
--- 	local word = vim.fn.expand("<cword>")
--- 	MiniPick.builtin.grep({
--- 		tool = 'rg',
--- 		pattern = word
--- 	})
--- end, { desc = "Live Grep word" })
--- map("n", "<leader>fW", function()
--- 	local word = vim.fn.expand("<cWORD>")
--- 	MiniPick.builtin.grep({
--- 		tool = 'rg',
--- 		pattern = word
--- 	})
--- end, { desc = "Live Grep WORD" })
 -- map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
 
 -- Tabs bindings
@@ -91,9 +76,6 @@ map({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
 map('n', '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
 map("x", "<leader>p", '"+P', { desc = "Paste from system clipboard" })
 
--- Terminal keybindings
-map("t", "<esc><esc>", "<C-\\><C-n>") -- escape terminal with double escape
-
 -- Search results
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
@@ -114,17 +96,10 @@ map("n", '<leader>li', vim.lsp.buf.hover, { desc = 'Information' })
 map("n", '<leader>lR', vim.lsp.buf.references, { desc = 'References' })
 map("n", '<leader>ls', vim.lsp.buf.definition, { desc = 'Source definition' })
 
--- diagnostic
-local diagnostic_goto = function(next, severity)
-	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-	severity = severity and vim.diagnostic.severity[severity] or nil
-	return function()
-		go({ severity = severity })
-	end
-end
-map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+-- Diagnostic
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Go to previous diagnostic" })
+map("n", "]d", function() vim.diagnostic.jump({ count = 1,  float = true }) end, { desc = "Go to next diagnostic" })
+map("n", "[w", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.WARN }) end,  { desc = "Go to previous warning" })
+map("n", "]w", function() vim.diagnostic.jump({ count = 1,  float = true, severity = vim.diagnostic.severity.WARN }) end,  { desc = "Go to next warning" })
+map("n", "[e", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Go to previous error" })
+map("n", "]e", function() vim.diagnostic.jump({ count = 1,  float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Go to next error" })
