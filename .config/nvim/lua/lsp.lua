@@ -1,24 +1,42 @@
-vim.pack.add({
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/Jari27/lazydev.nvim", version = "deprecate_client_notify" },
-})
-require("mason").setup()
-require("mason-lspconfig").setup({
+vim.pack.add {
+	{ src = 'https://github.com/neovim/nvim-lspconfig' },
+	{ src = 'https://github.com/mason-org/mason.nvim' },
+	{ src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
+	{ src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
+}
+
+require('mason').setup()
+require('mason-lspconfig').setup()
+require('mason-tool-installer').setup({
 	ensure_installed = {
 		"lua_ls",
+		"stylua",
 		"gopls",
 		"bashls",
 		"clangd",
-		-- "rust_analyzer",
-		-- "jdtls",
-		-- "java_language_server",
-	},
-	automatic_enable = {
-		exclude = {
-			"ts_ls"
-		}
+		"rust_analyzer",
+		"jdtls",
 	}
 })
-require("lazydev").setup()
+
+vim.lsp.config('lua_ls', {
+	settings = {
+		Lua = {
+			runtime = {
+				version = 'LuaJIT',
+			},
+			diagnostics = {
+				globals = {
+					'vim',
+					'require'
+				},
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
+})

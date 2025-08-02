@@ -1,18 +1,18 @@
 vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
-	-- { src = "https://github.com/prichrd/netrw.nvim" }
+	{ src = "https://github.com/prichrd/netrw.nvim" }
 })
 
 vim.cmd("colorscheme tokyonight")
 
--- require "netrw".setup({
--- 	use_devicons = true,
--- })
+require "netrw".setup({
+	use_devicons = true,
+})
 require "mini.pick".setup()
 require "mini.move".setup()
 require "mini.starter".setup()
--- require "mini.tabline".setup()
+require "mini.tabline".setup()
 require "mini.extra".setup()
 require "mini.completion".setup()
 require "mini.pairs".setup()
