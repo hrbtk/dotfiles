@@ -15,7 +15,9 @@ require('mason-tool-installer').setup({
 		"bashls",
 		"clangd",
 		"rust_analyzer",
+		"typescript-language-server",
 		"jdtls",
+		"html-lsp"
 	}
 })
 

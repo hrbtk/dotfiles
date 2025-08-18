@@ -3,4 +3,4 @@ require("plugins")
 require("keybindings")
 require("lsp")
 require("treesitter")
-
+require("snippets")

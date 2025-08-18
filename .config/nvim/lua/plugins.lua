@@ -1,6 +1,7 @@
 vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
+	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/prichrd/netrw.nvim" }
 })
 
@@ -63,6 +64,10 @@ miniclue.setup({
 
 		-- `s` key
 		{ mode = 'n', keys = 's' },
+
+		-- `][` keys
+		{ mode = 'n', keys = '[' },
+		{ mode = 'n', keys = ']' },
 	},
 
 	clues = {

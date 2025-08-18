@@ -6,7 +6,6 @@ map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { sile
 map("t", "<esc><esc>", "<C-\\><C-n>") -- escape terminal with double escape
 
 -- reload config
-map("n", "<leader><leader>", ":source %<CR>", { desc = "Source current file" })
 map("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { desc = "Reload config" })
 
 -- Comment
@@ -22,15 +21,18 @@ map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = tru
 -- Pick bindings
 map("n", "<leader>ff", ":Pick files<CR>", { desc = "File picker" })
 map("n", "<leader>fh", ":Pick help<CR>", { desc = "Help picker" })
-map("n", "<leader>b", ":Pick buffers<CR>", { desc = "Buffer picker" })
+map("n", "<leader><leader>", ":Pick buffers<CR>", { desc = "Buffer picker" })
 map("n", "<leader>fg", ":Pick grep_live tool='rg'<CR>", { desc = "Live Grep" })
 map("n", "<leader>f'", ":Pick resume<CR>", { desc = "Open last picker" })
 map("n", "<leader>fd", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
 map("n", "<leader>fi", ":Pick git_hunks<CR>", { desc = "Git diff picker" })
 map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
+-- map("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "File Explorer" })
 -- map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
 
 -- Tabs bindings
+map("n", "<Tab>", "<cmd>tabnext<cr>", { desc = "Next buffer" })                                          -- Go to the next buffer
+map("n", "<S-Tab>", "<cmd>tabprevious<cr>", { desc = "Previous buffer" })                                -- Go to the previous buffer
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
@@ -58,8 +60,6 @@ map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window W
 
 -- buffer navigation
 map("n", "<leader>x", "<Esc>:bprevious<bar>bdelete #<Return>", { desc = "Delete current buffer" }) -- Space+d delets current buffer
-map("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer" })                                          -- Go to the next buffer
-map("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer" })                                -- Go to the previous buffer
 
 -- Visual Maps
 map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>", { desc = "Replace all instances of highlighted words" }) -- Replace all instances of highlighted words
