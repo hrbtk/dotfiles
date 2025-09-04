@@ -229,7 +229,7 @@ map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
--- buffer navigation
+		-- buffer navigation
 map("n", "<Tab>", ":bnext <CR>", { desc = "Next buffer" })                                         -- Tab goes to next buffer
 map("n", "<S-Tab>", ":bprevious <CR>", { desc = "Prev buffer" })                                   -- Shift+Tab goes to previous buffer
 map("n", "<leader>x", "<Esc>:bprevious<bar>bdelete #<Return>", { desc = "Delete current buffer" }) -- Space+d delets current buffer
