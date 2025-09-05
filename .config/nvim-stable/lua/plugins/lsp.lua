@@ -12,9 +12,15 @@ return {
 			require("mason-lspconfig").setup()
 			require("mason-tool-installer").setup({
 				ensure_installed = {
-					"lua_ls", "stylua", "gopls", "bashls", "clangd",
-					"rust_analyzer", "typescript-language-server",
-					"jdtls", "html-lsp",
+					"lua_ls",
+					"stylua",
+					"gopls",
+					"bashls",
+					"clangd",
+					"rust_analyzer",
+					"typescript-language-server",
+					"jdtls",
+					"html-lsp",
 				},
 			})
 
