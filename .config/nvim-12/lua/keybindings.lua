@@ -6,7 +6,7 @@ map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { sile
 map("t", "<esc><esc>", "<C-\\><C-n>") -- escape terminal with double escape
 
 -- reload config
--- map("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { desc = "Reload config" })
+map("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { desc = "Reload config" })
 
 -- Comment
 map("n", "<leader>c", "gcc", { desc = "toggle comment", remap = true })
@@ -26,12 +26,13 @@ map("n", "<leader>fg", ":Pick grep_live tool='rg'<CR>", { desc = "Live Grep" })
 map("n", "<leader>f'", ":Pick resume<CR>", { desc = "Open last picker" })
 map("n", "<leader>fd", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
 map("n", "<leader>fi", ":Pick git_hunks<CR>", { desc = "Git diff picker" })
-map("n", "<leader>fc", ":Pick colorschemes<CR>", { desc = "Colorschemes" })
 map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
 -- map("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "File Explorer" })
 -- map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
 
 -- Tabs bindings
+map("n", "<Tab>", "<cmd>tabnext<cr>", { desc = "Next buffer" })                                          -- Go to the next buffer
+map("n", "<S-Tab>", "<cmd>tabprevious<cr>", { desc = "Previous buffer" })                                -- Go to the previous buffer
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
@@ -58,16 +59,11 @@ map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Wi
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- buffer navigation
-map("n", "<Tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })                                          -- Go to the next buffer
-map("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })                                -- Go to the previous buffer
 map("n", "<leader>x", "<Esc>:bprevious<bar>bdelete #<Return>", { desc = "Delete current buffer" }) -- Space+d delets current buffer
 
 -- Visual Maps
 map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>", { desc = "Replace all instances of highlighted words" }) -- Replace all instances of highlighted words
 map("v", "<C-s>", ":sort<CR>", { desc = "Sort highlighted text in visual mode with Control+S" })                -- Sort highlighted text in visual mode with Control+S
-
--- Little one from Primeagen to mass replace string in a file
-map("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Search and Replace word under cursor", silent = false })
 
 -- Scrolling remaps
 map("n", "<C-u>", "<C-u>zz")

@@ -59,6 +59,6 @@ vim.o.shiftwidth     = 4
 vim.o.fileencoding   = "utf-8" -- encoding set to utf-8
 vim.o.clipboard      = "unnamedplus"
 
-vim.o.completeopt    = 'menuone,noselect,fuzzy,nosort' -- Customize completions
+vim.o.completeopt    = 'menuone,noselect' -- Customize completions
 vim.o.virtualedit    = 'block'            -- Allow going past the end of line in visual block mode
 vim.o.formatoptions  = 'qjl1'             -- Don't autoformat comments
