@@ -2,14 +2,15 @@ theme = "base16_transparent"
 
 [editor]
 line-number = "relative"
+mouse = true
+completion-replace = true
+trim-trailing-whitespace = true
+trim-final-newlines = true
 bufferline = "multiple"
 scrolloff = 8
 color-modes = true
-true-color = true  
-undercurl = true
 end-of-line-diagnostics = "hint"
-rainbow-brackets = true
-# rulers = [80, 120]
+# rainbow-brackets = true
 # cursorline = true
 
 [editor.cursor-shape]
@@ -27,7 +28,7 @@ mode.insert = "INSERT"
 mode.select = "SELECT"
 
 [editor.lsp]
-goto-reference-include-declaration = false
+goto-reference-include-declaration = true
 display-inlay-hints = true
 display-progress-messages = true
 
@@ -40,16 +41,29 @@ enable = true
 [editor.inline-diagnostics]
 cursor-line = "warning" # show warnings and errors on the cursorline inline
 
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+nbsp = "none"
+nnbsp = "none"
+newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+nnbsp = "␣"
+tab = "→"
+newline = "⏎"
+tabpad = "·"
+
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
 ret = "goto_word"
-H = ":buffer-previous"
-L = ":buffer-next"
+"S-tab" = ":buffer-previous"
+"tab" = ":buffer-next"
 X = "select_line_above"
-C-k = "page_cursor_half_up"
-C-j = "page_cursor_half_down"
-# C-K = ["extend_to_line_bounds", "delete_selection", "paste_after"]
-# C-J = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+A-k = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+A-j = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 
 
 [keys.insert]
@@ -59,10 +73,14 @@ C-l = ["jump_view_right", "insert_mode"]
 [keys.select]
 ret = "extend_to_word"
 X = "select_line_above"
+A-j = ["extend_to_line_bounds", "delete_selection", "paste_after", "select_mode"]
+A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before", "select_mode"]
 
 [keys.normal.space]
-space = "file_picker"
-B = [":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"]
+space = "buffer_picker"
+b = [":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"]
+x = ":bc"
+X = ":bco"
 
 [keys.normal.backspace]
 backspace = "suspend"
@@ -73,9 +91,8 @@ e = [
   ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
   ':open %sh{cat /tmp/unique-file}',
   ':redraw',
-  ':set mouse false',
-  ':set mouse true',
 ]
+
 # Lazygit
 g = [
   ':set mouse false',
@@ -91,3 +108,10 @@ g = [
   ':rla'
 ]
 
+# Scooter (find-and-replace)
+s = [
+    ":write-all",
+    ":insert-output scooter >/dev/tty",
+    ":redraw",
+    ":reload-all"
+]

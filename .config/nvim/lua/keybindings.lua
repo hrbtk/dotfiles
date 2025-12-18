@@ -9,8 +9,8 @@ map("t", "<esc><esc>", "<C-\\><C-n>") -- escape terminal with double escape
 -- map("n", "<leader>r", ":source ~/.config/nvim/init.lua<CR>", { desc = "Reload config" })
 
 -- Comment
-map("n", "<leader>c", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<leader>c", "gc", { desc = "toggle comment", remap = true })
+map("n", "<leader>c", "gcc", { desc = "Toggle comment", remap = true })
+map("v", "<leader>c", "gc", { desc = "Toggle comment", remap = true })
 
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
