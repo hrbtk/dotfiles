@@ -39,9 +39,8 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey -v
 
-# <Ctrl-x><Ctrl-e> to edit command-line in EDITOR
-autoload -Uz edit-command-line && zle -N edit-command-line && bindkey "^x^e" edit-command-line
-
+# <Ctrl-e> to edit command-line in EDITOR
+autoload -Uz edit-command-line && zle -N edit-command-line && bindkey "^e" edit-command-line
 
 # Completions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -59,11 +58,12 @@ zinit cdreplay -q
 #######################################################
 
 export DEVDIR=${HOME}/dev
-export HELIX_RUNTIME=${DEVDIR}/helix/runtime
+export HELIX_RUNTIME="$DEVDIR/helix/runtime"
+export LSP_PATH="$DEVDIR/lua-language-server/bin:$DEVDIR/jdt-language-server/bin"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts:/usr/local/go/bin:$LSP_PATH"
-export EDITOR=nvim
-export VISUAL=nvim
-
+export EDITOR=hx
+export SUDO_EDITOR=hx
+export VISUAL=hx
 
 #######################################################
 # Aliases
@@ -101,6 +101,12 @@ else
   fi
 fi
 
+# Alias for micro
+# if [[ -x "$(command -v micro)" ]]; then
+#   alias e='micro'
+#   alias se='sudo micro'
+# fi
+
 # Alias for lazydocker
 if [[ -x "$(command -v lazydocker)" ]]; then
   alias lzd='lazydocker'
@@ -113,9 +119,14 @@ fi
 
 # Alias for Neovim
 alias clnvim='rm -rf mv ~/.cache/nvim ~/.local/share/nvim ~/.local/state/nvim'
-# if [ -f ~/.config/nvim-pack/init.lua ]; then
-#   alias vim="NVIM_APPNAME=nvim-pack nvim"
-# fi
+
+if [ -f ~/.config/nvim-minimal/init.lua ]; then
+  alias nvims="NVIM_APPNAME=nvim-minimal nvim"
+fi
+
+if [ -f ~/.config/nvim-minimax/init.lua ]; then
+  alias mininvim="NVIM_APPNAME=nvim-minimax nvim"
+fi
 
 # Get local IP addresses
 if [[ -x "$(command -v ip)" ]]; then
@@ -164,15 +175,17 @@ fi
 # Other
 #######################################################
 
+# Taskfile
+
+if [[ $(command -v task) ]]; then
+  eval "$(task --completion zsh)"
+fi
 
 # Yazi
-function yy() {
+function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
-
-
