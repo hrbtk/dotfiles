@@ -1,0 +1,72 @@
+@import "colors/rose-pine.css";
+
+* {
+    border: none;
+    border-radius: 0px;
+
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 16px;
+    font-weight: bold;
+
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+window#waybar {
+    background-color: transparent;
+}
+
+tooltip {
+    background-color: @base;
+    border: 1px solid @overlay;
+}
+
+tooltip label {
+    color: @text;
+    padding: 6px;
+}
+
+#workspaces {
+    background-color: @base;
+    padding: 1px 3px;
+    margin: 0 0 0 12px;
+    border-radius: 18px;
+    border: 1px solid @surface;
+    color: @text;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    margin: 0px 3px;
+    color: transparent;
+    border-radius: 50px;
+    background-color: @surface;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+    background-color: @pine;
+    color: @base;
+    min-width: 50px;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+}
+
+#workspaces button:hover {
+    background-color: @iris;
+    color: @base;
+    border-radius: 16px;
+    min-width: 50px;
+    background-size: 400% 400%;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.urgent {
+    background-color: @love;
+    color: @base;
+    border-radius: 16px;
+    min-width: 50px;
+    background-size: 400% 400%;
+    transition: all 0.3s ease-in-out;
+}

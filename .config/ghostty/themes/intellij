@@ -1,0 +1,24 @@
+# IntelliJ IDEA Darcula theme for Ghostty
+
+background #282a36
+foreground #f8f8f2
+cursor-color #f8f8f2
+selection-background #44475a
+selection-foreground #f8f8f2
+
+palette #282a36
+palette #ff5555
+palette #50fa7b
+palette #f1fa8c
+palette #8be9fd
+palette #bd93f9
+palette #ff79c6
+palette #f8f8f2
+palette #6272a4
+palette #ff6e6e
+palette #69ff94
+palette #ffffa5
+palette #a4ffff
+palette #d6acff
+palette #ff92df
+palette #ffffff
