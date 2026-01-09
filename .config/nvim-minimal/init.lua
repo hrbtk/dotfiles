@@ -63,129 +63,47 @@ vim.o.completeopt    = 'menuone,noselect' -- Customize completions
 vim.o.virtualedit    = 'block'            -- Allow going past the end of line in visual block mode
 vim.o.formatoptions  = 'qjl1'             -- Don't autoformat comments
 
-vim.cmd [[
-	set path+=**
-	colorscheme tokyonight
-	highlight Normal ctermbg=NONE guibg=NONE
-	filetype plugin on
-	set wildmenu
-	command! Reload :source ~/.config/nvim/init.lua
-	command! Make :!make
-]]
-
---statusline
+-- Statusline
 local modes = {
-	["n"] = "NORMAL",
-	["no"] = "NORMAL",
-	["v"] = "VISUAL",
-	["V"] = "VISUAL LINE",
-	[""] = "VISUAL BLOCK",
-	["s"] = "SELECT",
-	["S"] = "SELECT LINE",
-	[""] = "SELECT BLOCK",
-	["i"] = "INSERT",
-	["ic"] = "INSERT",
-	["R"] = "REPLACE",
-	["Rv"] = "VISUAL REPLACE",
-	["c"] = "COMMAND",
-	["cv"] = "VIM EX",
-	["ce"] = "EX",
-	["r"] = "PROMPT",
-	["rm"] = "MOAR",
-	["r?"] = "CONFIRM",
-	["!"] = "SHELL",
-	["t"] = "TERMINAL",
+  ["n"] = "NORMAL",
+  ["no"] = "NORMAL",
+  ["v"] = "VISUAL",
+  ["V"] = "VISUAL LINE",
+  [""] = "VISUAL BLOCK",
+  ["s"] = "SELECT",
+  ["S"] = "SELECT LINE",
+  [""] = "SELECT BLOCK",
+  ["i"] = "INSERT",
+  ["ic"] = "INSERT",
+  ["R"] = "REPLACE",
+  ["Rv"] = "VISUAL REPLACE",
+  ["c"] = "COMMAND",
+  ["cv"] = "VIM EX",
+  ["ce"] = "EX",
+  ["r"] = "PROMPT",
+  ["rm"] = "MOAR",
+  ["r?"] = "CONFIRM",
+  ["!"] = "SHELL",
+  ["t"] = "TERMINAL",
 }
 
-
-vim.cmd "highlight StatusLineAccent guibg=#7aa2f7 guifg=#1a1b26"
-vim.cmd "highlight StatuslineInsertAccent guibg=#9ece6a guifg=#1a1b26"
-vim.cmd "highlight StatuslineVisualAccent guibg=#bb9af7 guifg=#1a1b26"
-vim.cmd "highlight StatuslineReplaceAccent guibg=#f7768e guifg=#1a1b26"
-vim.cmd "highlight StatuslineCmdLineAccent guibg=#e0af68 guifg=#1a1b26"
-vim.cmd "highlight StatuslineTerminalAccent guibg=#73daca guifg=#1a1b26"
-
-local function mode()
-	local current_mode = vim.api.nvim_get_mode().mode
-	return string.format(" %s ", modes[current_mode]):upper()
+function _G.mode()
+  local current_mode = vim.api.nvim_get_mode().mode
+  return string.format(" %s ", modes[current_mode]):upper()
 end
 
-local function update_mode_colors()
-	local current_mode = vim.api.nvim_get_mode().mode
-	local mode_color = "%#StatusLineAccent#"
-	if current_mode == "n" then
-		mode_color = "%#StatusLineAccent#"
-	elseif current_mode == "i" or current_mode == "ic" then
-		mode_color = "%#StatuslineInsertAccent#"
-	elseif current_mode == "v" or current_mode == "V" or current_mode == "" then
-		mode_color = "%#StatuslineVisualAccent#"
-	elseif current_mode == "R" then
-		mode_color = "%#StatuslineReplaceAccent#"
-	elseif current_mode == "c" then
-		mode_color = "%#StatuslineCmdLineAccent#"
-	elseif current_mode == "t" then
-		mode_color = "%#StatuslineTerminalAccent#"
-	end
-	return mode_color
-end
+local statusline = {
+  ' %{%v:lua.mode()%}',
+  ' %t',
+  '%r',
+  '%m',
+  '%=',
+  '%{&filetype}',
+  ' %2p%%',
+  ' %3l:%-2c '
+}
 
-local function filepath()
-	local fpath = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
-	if fpath == "" or fpath == "." then
-		return " "
-	end
-
-	return string.format(" %%<%s/", fpath)
-end
-
-local function filename()
-	local fname = vim.fn.expand "%:t"
-	if fname == "" then
-		return ""
-	end
-	return fname .. " "
-end
-
-local function filetype()
-	return string.format(" %s ", vim.bo.filetype):upper()
-end
-
-local function lineinfo()
-	if vim.bo.filetype == "alpha" then
-		return ""
-	end
-	return " %P %l:%c "
-end
-
-Statusline = {}
-
-Statusline.active = function()
-	return table.concat {
-		"%#Statusline#",
-		update_mode_colors(),
-		mode(),
-		"%#Normal# ",
-		filepath(),
-		filename(),
-		"%=%#StatusLineExtra#",
-		filetype(),
-		lineinfo(),
-	}
-end
-
-function Statusline.inactive()
-	return " %F"
-end
-
-vim.api.nvim_exec2([[
-  augroup Statusline
-  au!
-  au WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline.active()
-  au WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline.inactive()
-  augroup END
-]], {
-	output = false,
-} )
+vim.o.statusline = table.concat(statusline, '')
 
 -- Functional wrapper for mapping custom keybindings
 local map = vim.keymap.set
@@ -229,7 +147,7 @@ map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
-		-- buffer navigation
+-- Buffer navigation
 map("n", "<Tab>", ":bnext <CR>", { desc = "Next buffer" })                                         -- Tab goes to next buffer
 map("n", "<S-Tab>", ":bprevious <CR>", { desc = "Prev buffer" })                                   -- Shift+Tab goes to previous buffer
 map("n", "<leader>x", "<Esc>:bprevious<bar>bdelete #<Return>", { desc = "Delete current buffer" }) -- Space+d delets current buffer

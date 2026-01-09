@@ -7,12 +7,57 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "base_keymap": "JetBrains",
-  "ui_font_size": 18,
-  "buffer_font_size": 18,
+  "colorize_brackets": true,
+  "show_edit_predictions": true,
+  "edit_predictions": {
+    "mode": "eager",
+  },
+  "agent": {
+    "enabled": true,
+    "preferred_completion_mode": "normal",
+    "button": true,
+    "default_view": "text_thread",
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5.1-codex",
+    },
+    "model_parameters": [],
+  },
+  "disable_ai": false,
+  "icon_theme": "Colored Zed Icons Theme Dark",
   "theme": {
     "mode": "system",
-    "light": "One Light",
-    "dark": "Tokyo Night"
-  }
+    "light": "JetBrains Light",
+    "dark": "JetBrains Dark",
+  },
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "ui_font_size": 16,
+  "buffer_font_size": 16.0,
+  "indent_guides": {
+    "enabled": true,
+    "coloring": "indent_aware",
+  },
+  "tabs": {
+    "show_diagnostics": "all",
+    "file_icons": true,
+    "git_status": true,
+  },
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true,
+    },
+  },
+  "lsp_document_colors": "background",
+  "toolbar": {
+    "quick_actions": false,
+    "breadcrumbs": true,
+  },
+  "inlay_hints": {
+    "enabled": false,
+  },
+  "vim_mode": true,
+  "base_keymap": "JetBrains",
+  "remove_trailing_whitespace_on_save": true,
 }
