@@ -13,6 +13,7 @@ vim.o.undofile    = false
 vim.o.swapfile    = false
 vim.o.backup      = false
 vim.o.writebackup = false
+vim.o.autoread    = true
 vim.o.mouse       = 'a'              -- enable the mouse in all modes
 vim.cmd('filetype plugin indent on') -- Enable all filetype plugins
 
@@ -101,8 +102,8 @@ map("n", "<leader>rl", "<Cmd>so $HOME/.config/nvim/init.lua<CR>", { silent = tru
 map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Comment
-map("n", "<leader>c", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<leader>c", "gc", { desc = "toggle comment", remap = true })
+map("n", "<leader>c", "gcc", { desc = "Toggle comment", remap = true })
+map("v", "<leader>c", "gc", { desc = "Toggle comment", remap = true })
 
 -- Better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -125,18 +126,6 @@ map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 map("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-
--- Buffer navigation
-map("n", "<leader>bn", "<Cmd>bnext <CR>", { desc = "Next buffer" })
-map("n", "<leader>bp", "<Cmd>bprevious <CR>", { desc = "Prev buffer" })
-map("n", "<leader>bx", "<Esc>:bprevious<bar>bdelete #<Return>", { desc = "Delete current buffer" })
-
--- Tabs
-map('n', '<leader>tn', ':tabnext<CR>', { desc = 'Next tab' })
-map('n', '<leader>tp', ':tabprevious<CR>', { desc = 'Previous tab' })
-map('n', '<leader>tx', ':tabclose<CR>', { desc = 'Close tab' })
-map('n', '<leader>t>', ':tabmove +1<CR>', { desc = 'Move tab right' })
-map('n', '<leader>t<', ':tabmove -1<CR>', { desc = 'Move tab left' })
 
 -- Replace all instances of highlighted words
 map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>")
@@ -169,15 +158,6 @@ map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result
 map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
-
--- Automatically close quotes, parenthesis, and brackets
-map("i", "'", "''<left>")
-map("i", "\"", "\"\"<left>")
-map("i", "(", "()<left>")
-map("i", "[", "[]<left>")
-map("i", "{", "{}<left>")
-map("i", "/*", "/**/<left><left>")
-map("i", "<", "<><left>")
 
 -- ############
 -- # Autocmds #
@@ -232,119 +212,3 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         end
     end,
 })
-
-
--- ##############
--- # STATUSLINE #
--- ##############
-
-local CTRL_S = vim.api.nvim_replace_termcodes('<C-S>', true, true, true)
-local CTRL_V = vim.api.nvim_replace_termcodes('<C-V>', true, true, true)
-local modes = setmetatable({
-    ['n']    = { long = 'Normal', short = 'N', hl = '%#Cursor#' },
-    ['v']    = { long = 'Visual', short = 'V', hl = '%#CurSearch#' },
-    ['V']    = { long = 'V-Line', short = 'V-L', hl = '%#CurSearch#' },
-    [CTRL_V] = { long = 'V-Block', short = 'V-B', hl = '%#CurSearch#' },
-    ['s']    = { long = 'Select', short = 'S', hl = '%#CurSearch#' },
-    ['S']    = { long = 'S-Line', short = 'S-L', hl = '%#CurSearch#' },
-    [CTRL_S] = { long = 'S-Block', short = 'S-B', hl = '%#CurSearch#' },
-    ['i']    = { long = 'Insert', short = 'I', hl = '%#DiffAdd#' },
-    ['R']    = { long = 'Replace', short = 'R', hl = '%#DiffDelete#' },
-    ['c']    = { long = 'Command', short = 'C', hl = '%#DiffText#' },
-    ['r']    = { long = 'Prompt', short = 'P', hl = '%#DiffChange#' },
-    ['!']    = { long = 'Shell', short = 'Sh', hl = '%#DiffChange#' },
-    ['t']    = { long = 'Terminal', short = 'T', hl = '%#DiffChange#' },
-}, {
-    __index = function()
-        return { long = 'Unknown', short = 'U', hl = '%#IncSearch#' }
-    end,
-})
-
--- Git branch
-local git_cache = {}
-
-local function git_branch()
-    local buf = vim.api.nvim_get_current_buf()
-
-    if git_cache[buf] ~= nil then
-        return git_cache[buf]
-    end
-
-    local branch = vim.fn.systemlist(
-        "git branch --show-current 2>/dev/null"
-    )[1]
-
-    if branch and branch ~= "" then
-        git_cache[buf] = " " .. branch
-    else
-        git_cache[buf] = ""
-    end
-
-    return git_cache[buf]
-end
-
--- Mode indicators with icons
-local function mode_icon()
-    local mode_info = modes[vim.fn.mode()]
-    return table.concat {
-        mode_info.hl,
-        " ",
-        mode_info.long
-    }
-end
-
-_G.mode_icon = mode_icon
-_G.git_branch = git_branch
-
-vim.cmd([[
-  highlight StatusLineBold gui=bold cterm=bold
-]])
-
--- Function to change statusline based on window focus
-local function setup_dynamic_statusline()
-    vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-        group = augroup,
-        callback = function()
-            vim.opt_local.statusline = table.concat {
-                '%{%v:lua.mode_icon()%} ',
-                '%#StatusLineReverse# ',
-                '%f ',
-                '%m ',
-                '%r ',
-                '%#StatusLineReverse# ',
-                '%=',
-                '%{v:lua.git_branch()} ',
-                '%#StatusLine# %{&filetype} %3l:%-2c ',
-
-            }
-        end
-    })
-    vim.api.nvim_set_hl(0, "StatusLineBold", { bold = true })
-    vim.api.nvim_set_hl(0, "StatusLineReverse", { reverse = true })
-
-
-    vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-        group = augroup,
-        callback = function()
-            vim.opt_local.statusline = "  %f %h%m%r │ %{&filetype} | %=  %l:%c   %P "
-        end
-    })
-
-    vim.api.nvim_create_autocmd("BufEnter", {
-        group = augroup,
-        callback = function(args)
-            git_cache[args.buf] = nil
-        end,
-    })
-
-    vim.api.nvim_create_autocmd("DirChanged", {
-        group = augroup,
-        callback = function()
-            git_cache = {}
-        end,
-    })
-end
-
-
-
-setup_dynamic_statusline()

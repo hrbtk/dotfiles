@@ -26,9 +26,9 @@ map("n", "<leader>fg", ":Pick grep_live tool='rg'<CR>", { desc = "Live Grep" })
 map("n", "<leader>f'", ":Pick resume<CR>", { desc = "Open last picker" })
 map("n", "<leader>fd", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
 map("n", "<leader>fi", ":Pick git_hunks<CR>", { desc = "Git diff picker" })
-map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
+-- map("n", "<leader>e", ":Explore<CR>", { desc = "File Explorer" })
 -- map("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "File Explorer" })
--- map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
+map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
 
 -- Tabs bindings
 map("n", "<Tab>", "<cmd>tabnext<cr>", { desc = "Next buffer" })                                          -- Go to the next buffer
