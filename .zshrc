@@ -37,7 +37,7 @@ bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
-bindkey -v
+# bindkey -v
 
 # <Ctrl-e> to edit command-line in EDITOR
 autoload -Uz edit-command-line && zle -N edit-command-line && bindkey "^e" edit-command-line
@@ -61,9 +61,10 @@ export DEVDIR=${HOME}/dev
 export HELIX_RUNTIME="$DEVDIR/helix/runtime"
 export LSP_PATH="$DEVDIR/lua-language-server/bin:$DEVDIR/jdt-language-server/bin"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts:/usr/local/go/bin:$LSP_PATH"
-export EDITOR=hx
-export SUDO_EDITOR=hx
-export VISUAL=hx
+export EDITOR=nvim
+export SUDO_EDITOR=nvim
+export VISUAL=nvim
+export ANDROID_HOME="/home/herbatka/Android/Sdk"
 
 #######################################################
 # Aliases
@@ -88,11 +89,15 @@ alias gaa='git add .'
 alias gti='git'
 alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 
-# Alias for eza
+# Alias for ls
 if [[ -x "$(command -v eza)" ]]; then
   alias ls='eza --icons=always --color=always'
   alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
   alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
+elif [[ -x "$(command -v lsd)" ]]; then
+  alias ls='lsd'
+  alias ll='lsd -al --header --git --group-directories-first --date="+%b %d %H:%M"'
+  alias lt='lsd -a --tree'
 else
   alias ls='ls --color=always'
   alias ll='ls -alh --color=always'
@@ -100,12 +105,6 @@ else
     alias lt='tree -a'
   fi
 fi
-
-# Alias for micro
-# if [[ -x "$(command -v micro)" ]]; then
-#   alias e='micro'
-#   alias se='sudo micro'
-# fi
 
 # Alias for lazydocker
 if [[ -x "$(command -v lazydocker)" ]]; then
@@ -118,15 +117,11 @@ if [[ -x "$(command -v lazygit)" ]]; then
 fi
 
 # Alias for Neovim
-alias clnvim='rm -rf mv ~/.cache/nvim ~/.local/share/nvim ~/.local/state/nvim'
-
-if [ -f ~/.config/nvim-minimal/init.lua ]; then
-  alias nvims="NVIM_APPNAME=nvim-minimal nvim"
-fi
-
-if [ -f ~/.config/nvim-minimax/init.lua ]; then
-  alias mininvim="NVIM_APPNAME=nvim-minimax nvim"
-fi
+alias clnvim='rm -rf ~/.cache/nvim ~/.local/share/nvim ~/.local/state/nvim'
+alias v='nvim'
+# if [ -f ~/.config/nvim-minimal/init.lua ]; then
+#   alias v="NVIM_APPNAME=nvim-minimal nvim"
+# fi
 
 # Get local IP addresses
 if [[ -x "$(command -v ip)" ]]; then
@@ -148,10 +143,10 @@ if [ -f "$HOME/fzf-git.sh/fzf-git.sh" ]; then
     source "$HOME/fzf-git.sh/fzf-git.sh"
 fi
 
-
 #######################################################
 # Fetch
 #######################################################
+
 if [[ $(command -v afetch) ]]; then
     afetch
     printf "\n"
@@ -165,18 +160,15 @@ fi
 # Prompt
 #######################################################
 
-
 if [[ $(command -v starship) ]]; then
   eval "$(starship init zsh)"
 fi
-
 
 #######################################################
 # Other
 #######################################################
 
 # Taskfile
-
 if [[ $(command -v task) ]]; then
   eval "$(task --completion zsh)"
 fi
