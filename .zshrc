@@ -118,10 +118,9 @@ fi
 
 # Alias for Neovim
 alias clnvim='rm -rf ~/.cache/nvim ~/.local/share/nvim ~/.local/state/nvim'
-alias v='nvim'
-# if [ -f ~/.config/nvim-minimal/init.lua ]; then
-#   alias v="NVIM_APPNAME=nvim-minimal nvim"
-# fi
+if [ -f ~/.config/nvim-minimal/init.lua ]; then
+  alias v="NVIM_APPNAME=nvim-minimal nvim"
+fi
 
 # Get local IP addresses
 if [[ -x "$(command -v ip)" ]]; then
@@ -141,19 +140,6 @@ eval "$(fzf --zsh)"
 # fzf for git
 if [ -f "$HOME/fzf-git.sh/fzf-git.sh" ]; then
     source "$HOME/fzf-git.sh/fzf-git.sh"
-fi
-
-#######################################################
-# Fetch
-#######################################################
-
-if [[ $(command -v afetch) ]]; then
-    afetch
-    printf "\n"
-elif [[ $(command -v fastfetch) ]]; then
-    fastfetch
-elif [[ $(command -v neofetch) ]]; then
-    neofetch
 fi
 
 #######################################################
@@ -181,3 +167,10 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+
+# Man pages with bat
+if [[ $(command -v bat) ]]; then
+    function mann() {
+        man $1 | bat -l man --style=-numbers
+    }
+fi
