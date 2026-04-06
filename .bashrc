@@ -35,8 +35,8 @@ fi
 # Variables
 #######################################################
 export PATH="$PATH:/home/herbatka/.local/bin"
-export EDITOR=micro
-export VISUAL=micro
+export EDITOR=nvim
+export VISUAL=nvim
 
 #######################################################
 # Aliases
@@ -60,11 +60,15 @@ alias gaa='git add .'
 alias gti='git'
 alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 
-# Alias for eza
+# Alias for ls
 if [[ -x "$(command -v eza)" ]]; then
   alias ls='eza --icons=always --color=always'
   alias ll='eza -alh --header --icons=always --color=always --git --group-directories-first'
   alias lt='eza -alh --header --icons=always --color=always --tree --group-directories-first'
+elif [[ -x "$(command -v lsd)" ]]; then
+  alias ls='lsd'
+  alias ll='lsd -al --header --git --group-directories-first --date="+%b %d %H:%M"'
+  alias lt='lsd -a --tree'
 else
   alias ls='ls --color=always'
   alias ll='ls -alh --color=always'
@@ -73,10 +77,10 @@ else
   fi
 fi
 
-# Alias for micro
-if [[ -x "$(command -v micro)" ]]; then
-  alias e='micro'
-  alias se='sudo micro'
+# Alias for Neovim
+alias clnvim='rm -rf ~/.cache/nvim ~/.local/share/nvim ~/.local/state/nvim'
+if [ -f ~/.config/nvim-minimal/init.lua ]; then
+  alias v="NVIM_APPNAME=nvim-minimal nvim"
 fi
 
 # Alias for lazydocker
