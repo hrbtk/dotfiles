@@ -1,6 +1,5 @@
-
 vim.pack.add({
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = 'main' },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })
 local autocmd = vim.api.nvim_create_autocmd
 local ts_parsers = {
@@ -13,9 +12,6 @@ local ts_parsers = {
 	"gitcommit",
 	"gitignore",
 	"go",
-	"gomod",
-	"gosum",
-	"help",
 	"html",
 	"java",
 	"javascript",
@@ -23,13 +19,12 @@ local ts_parsers = {
 	"lua",
 	"make",
 	"markdown",
+	"markdown_inline",
 	"python",
 	"rust",
 	"sql",
 	"toml",
-	"tsx",
 	"typescript",
-	"typst",
 	"vim",
 	"yaml",
 }

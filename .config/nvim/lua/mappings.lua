@@ -1,0 +1,104 @@
+
+--###############
+--# Keymappings #
+--###############
+
+-- Leader key
+vim.g.mapleader      = " "
+vim.g.maplocalleader = " "
+
+-- Functional wrapper for mapping custom keybindings
+local map            = vim.keymap.set
+
+-- misc
+map("n", "<BS><BS>", "<Cmd>suspend<CR>", { desc = "Suspend" })
+map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
+map('n', '<leader>x', "<Cmd>bdelete<CR>", { desc = "Close current buffer" }) -- close current buffer
+map('n', '<leader>gd', "<Cmd>lua MiniDiff.toggle_overlay()<CR>", { desc = "Toggle diff view"}) -- Toggle MiniDiff view
+map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
+-- map("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "File Explorer" })
+
+map("n", "<leader>mt", ":Markview Toggle<CR>", { desc = "Markview toggle" }) -- Makrview (makrdown) toggle
+map("n", "<leader>ms", ":Markview splitToggle<CR>", { desc = "Markview split" }) -- Makrview (makrdown) toggle split
+
+
+-- Pick bindings
+map("n", "<leader>ff", ":Pick files<CR>", { desc = "File picker" })
+map("n", "<leader>fh", ":Pick help<CR>", { desc = "Help picker" })
+map("n", "<leader><leader>", ":Pick buffers<CR>", { desc = "Buffer picker", silent = true })
+map("n", "<leader>/", ":Pick grep_live tool='rg'<CR>", { desc = "Live Grep" })
+map("n", "<leader>f'", ":Pick resume<CR>", { desc = "Open last picker" })
+map("n", "<leader>fd", ":Pick diagnostic<CR>", { desc = "Diagnostic picker" })
+map("n", "<leader>fi", ":Pick git_hunks<CR>", { desc = "Git diff picker" })
+map("n", "<leader>fe", ":Explore<CR>", { desc = "Netrw File Explorer" })
+
+-- Delete without yanking
+map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
+
+-- Comment
+map("n", "<leader>c", "gcc", { desc = "Toggle comment", remap = true })
+map("v", "<leader>c", "gc", { desc = "Toggle comment", remap = true })
+
+-- Better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+
+-- Splitting & Resizing
+map("n", "<leader>sv", "<Cmd>vsplit<CR>", { desc = "Split window vertically" })
+map("n", "<leader>sh", "<Cmd>split<CR>", { desc = "Split window horizontally" })
+map("n", "<leader>sd", "<Cmd>close<CR>", { desc = "Close split" })
+
+map("n", "<C-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
+map("n", "<C-Down>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
+map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
+map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window width" })
+
+-- Window navigation
+map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+-- Replace all instances of highlighted words
+map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>")
+
+-- Scrolling remaps
+map("n", "<C-u>", "<C-u>zz")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-f>", "<C-f>zz")
+map("n", "<C-b>", "<C-b>zz")
+
+-- Copy/paste with system clipboard
+map({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
+map('n', '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
+map("x", "<leader>p", '"+P', { desc = "Paste from system clipboard" })
+
+-- Search results
+map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+
+-- LSP
+map("n", "<leader>lD", ":Pick lsp scope='definition'<cr>", { desc = "[G]oto [D]efinition" })
+map("n", "<leader>lR", ":Pick lsp scope='references'<cr>", { desc = "References" })
+map("n", "<leader>lI", ":Pick lsp scope='implementation'<cr>", { desc = "[G]oto [I]mplementation" })
+map("n", "<leader>lt", ":Pick lsp scope='type_definition'<cr>", { desc = "Type Definition" })
+map("n", '<leader>la', vim.lsp.buf.signature_help, { desc = 'Arguments popup' })
+map("n", '<leader>ld', vim.diagnostic.open_float, { desc = 'Diagnostics popup' })
+map("n", '<leader>lf', vim.lsp.buf.format, { desc = 'Format' })
+map("n", '<leader>li', vim.lsp.buf.hover, { desc = 'Information' })
+map("n", '<leader>lR', vim.lsp.buf.references, { desc = 'References' })
+map("n", '<leader>ls', vim.lsp.buf.definition, { desc = 'Source definition' })
+
+-- Diagnostic
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Go to previous diagnostic" })
+map("n", "]d", function() vim.diagnostic.jump({ count = 1,  float = true }) end, { desc = "Go to next diagnostic" })
+map("n", "[w", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.WARN }) end,  { desc = "Go to previous warning" })
+map("n", "]w", function() vim.diagnostic.jump({ count = 1,  float = true, severity = vim.diagnostic.severity.WARN }) end,  { desc = "Go to next warning" })
+map("n", "[e", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Go to previous error" })
+map("n", "]e", function() vim.diagnostic.jump({ count = 1,  float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Go to next error" })
