@@ -1,7 +1,6 @@
 vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 })
-local autocmd = vim.api.nvim_create_autocmd
 local ts_parsers = {
 	"bash",
 	"c",
@@ -30,6 +29,9 @@ local ts_parsers = {
 }
 local nts = require("nvim-treesitter")
 nts.install(ts_parsers)
+
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 autocmd("PackChanged", { -- update treesitter parsers/queries with plugin updates
 	group = augroup,
 	callback = function(args)

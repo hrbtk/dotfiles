@@ -4,16 +4,15 @@
 
 vim.pack.add({
 	"https://github.com/folke/tokyonight.nvim",
-    "https://github.com/sainnhe/gruvbox-material",
+	"https://github.com/sainnhe/gruvbox-material",
 	"https://github.com/nvim-mini/mini.nvim",
-    "https://github.com/OXY2DEV/markview.nvim",
+	"https://github.com/OXY2DEV/markview.nvim",
 })
 
-vim.g.gruvbox_material_background = 'hard'
+vim.g.gruvbox_material_background = "hard"
 vim.g.gruvbox_material_enable_italic = 1
 vim.g.gruvbox_material_enable_bold = 1
-vim.cmd.colorscheme('gruvbox-material')
-
+vim.cmd.colorscheme("gruvbox-material")
 
 require("mini.completion").setup()
 require("mini.move").setup()

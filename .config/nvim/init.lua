@@ -1,6 +1,6 @@
 require("plugins")
 require("options")
 require("mappings")
-require("autocmds")
 require("treesitter")
 require("lsp")
+require("autocmds")

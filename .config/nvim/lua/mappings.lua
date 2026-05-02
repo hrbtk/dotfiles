@@ -1,26 +1,24 @@
-
 --###############
 --# Keymappings #
 --###############
 
 -- Leader key
-vim.g.mapleader      = " "
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Functional wrapper for mapping custom keybindings
-local map            = vim.keymap.set
+local map = vim.keymap.set
 
 -- misc
 map("n", "<BS><BS>", "<Cmd>suspend<CR>", { desc = "Suspend" })
-map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
-map('n', '<leader>x', "<Cmd>bdelete<CR>", { desc = "Close current buffer" }) -- close current buffer
-map('n', '<leader>gd', "<Cmd>lua MiniDiff.toggle_overlay()<CR>", { desc = "Toggle diff view"}) -- Toggle MiniDiff view
+map("n", "<Esc>", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
+map("n", "<leader>x", "<Cmd>bdelete<CR>", { desc = "Close current buffer" }) -- close current buffer
+map("n", "<leader>gd", "<Cmd>lua MiniDiff.toggle_overlay()<CR>", { desc = "Toggle diff view" }) -- Toggle MiniDiff view
 map("n", "<leader>e", ":Pick explorer<CR>", { desc = "File Explorer" })
 -- map("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", { desc = "File Explorer" })
 
 map("n", "<leader>mt", ":Markview Toggle<CR>", { desc = "Markview toggle" }) -- Makrview (makrdown) toggle
 map("n", "<leader>ms", ":Markview splitToggle<CR>", { desc = "Markview split" }) -- Makrview (makrdown) toggle split
-
 
 -- Pick bindings
 map("n", "<leader>ff", ":Pick files<CR>", { desc = "File picker" })
@@ -62,7 +60,7 @@ map("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 -- Replace all instances of highlighted words
-map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>")
+map("v", "<leader>r", '"hy:%s/<C-r>h//g<left><left>', { desc = "Replace highlighted" })
 
 -- Scrolling remaps
 map("n", "<C-u>", "<C-u>zz")
@@ -71,8 +69,8 @@ map("n", "<C-f>", "<C-f>zz")
 map("n", "<C-b>", "<C-b>zz")
 
 -- Copy/paste with system clipboard
-map({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
-map('n', '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
+map({ "n", "x" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+map("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 map("x", "<leader>p", '"+P', { desc = "Paste from system clipboard" })
 
 -- Search results
@@ -88,17 +86,29 @@ map("n", "<leader>lD", ":Pick lsp scope='definition'<cr>", { desc = "[G]oto [D]e
 map("n", "<leader>lR", ":Pick lsp scope='references'<cr>", { desc = "References" })
 map("n", "<leader>lI", ":Pick lsp scope='implementation'<cr>", { desc = "[G]oto [I]mplementation" })
 map("n", "<leader>lt", ":Pick lsp scope='type_definition'<cr>", { desc = "Type Definition" })
-map("n", '<leader>la', vim.lsp.buf.signature_help, { desc = 'Arguments popup' })
-map("n", '<leader>ld', vim.diagnostic.open_float, { desc = 'Diagnostics popup' })
-map("n", '<leader>lf', vim.lsp.buf.format, { desc = 'Format' })
-map("n", '<leader>li', vim.lsp.buf.hover, { desc = 'Information' })
-map("n", '<leader>lR', vim.lsp.buf.references, { desc = 'References' })
-map("n", '<leader>ls', vim.lsp.buf.definition, { desc = 'Source definition' })
+map("n", "<leader>la", vim.lsp.buf.signature_help, { desc = "Arguments popup" })
+map("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Diagnostics popup" })
+map("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
+map("n", "<leader>li", vim.lsp.buf.hover, { desc = "Information" })
+map("n", "<leader>lR", vim.lsp.buf.references, { desc = "References" })
+map("n", "<leader>ls", vim.lsp.buf.definition, { desc = "Source definition" })
 
 -- Diagnostic
-map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Go to previous diagnostic" })
-map("n", "]d", function() vim.diagnostic.jump({ count = 1,  float = true }) end, { desc = "Go to next diagnostic" })
-map("n", "[w", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.WARN }) end,  { desc = "Go to previous warning" })
-map("n", "]w", function() vim.diagnostic.jump({ count = 1,  float = true, severity = vim.diagnostic.severity.WARN }) end,  { desc = "Go to next warning" })
-map("n", "[e", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Go to previous error" })
-map("n", "]e", function() vim.diagnostic.jump({ count = 1,  float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Go to next error" })
+map("n", "[d", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Go to previous diagnostic" })
+map("n", "]d", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Go to next diagnostic" })
+map("n", "[w", function()
+	vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.WARN })
+end, { desc = "Go to previous warning" })
+map("n", "]w", function()
+	vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.WARN })
+end, { desc = "Go to next warning" })
+map("n", "[e", function()
+	vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR })
+end, { desc = "Go to previous error" })
+map("n", "]e", function()
+	vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
+end, { desc = "Go to next error" })
