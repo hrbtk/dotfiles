@@ -60,7 +60,7 @@ zinit cdreplay -q
 export DEVDIR=${HOME}/dev
 export HELIX_RUNTIME="$DEVDIR/helix/runtime"
 export LSP_PATH="$DEVDIR/lua-language-server/bin:$DEVDIR/jdt-language-server/bin"
-export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts:/usr/local/go/bin:$LSP_PATH"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.scripts:/usr/local/go/bin:$LSP_PATH:/opt/nvim-linux-x86_64/bin"
 export EDITOR=nvim
 export SUDO_EDITOR=nvim
 export VISUAL=nvim
@@ -142,19 +142,35 @@ if [ -f "$HOME/fzf-git.sh/fzf-git.sh" ]; then
     source "$HOME/fzf-git.sh/fzf-git.sh"
 fi
 
+
+#######################################################
+# Fetch
+#######################################################
+# if [[ $(command -v afetch) ]]; then
+#     afetch
+#     printf "\n"
+# elif [[ $(command -v fastfetch) ]]; then
+#     fastfetch
+# elif [[ $(command -v neofetch) ]]; then
+#     neofetch
+# fi
+
 #######################################################
 # Prompt
 #######################################################
 
+
 if [[ $(command -v starship) ]]; then
   eval "$(starship init zsh)"
 fi
+
 
 #######################################################
 # Other
 #######################################################
 
 # Taskfile
+
 if [[ $(command -v task) ]]; then
   eval "$(task --completion zsh)"
 fi
