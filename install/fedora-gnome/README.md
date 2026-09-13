@@ -1,27 +1,28 @@
-# Fedora 40 Installation
+# Fedora Gnome Setup
 
-## 1. dnf
+This script was assembled based on the script generated with [fedora-things-to-do](https://github.com/k-mktr/fedora-things-to-do).
 
-1. run _1_dnf_rpm.sh_ script
+It covers basic system setup, installation of programs and packages and change of some Gnome settings (mainly keybindings). It does not cover Gnome extentions (yet). Current extention list:
 
-## 2. Firmware and codecs
-
-1. run _2_firmware_codes.sh_ script
-
-## 3. Software installation
-
-1. install `sudo dnf install gh`
-2. authorize to GitHub using `gh auth`
-3. run _3_software.sh_ script
-
-## 4. Fonts installation
-
-1. run _4_fonts.sh_ script
-
-## 5. Copy configs
-
-1. run _5_config.sh_ script
-
-## 6. Gnome setup
-
-1. run _6_gnome.sh_ script
+- blur-my-shell@aunetx
+- appindicatorsupport@rgcjonas.gmail.com
+- caffeine@patapon.info
+- color-picker@tuberry
+- dash-to-dock@micxgx.gmail.com
+- gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com
+- quicksettings-audio-devices-hider@marcinjahn.com
+- rounded-window-corners@fxgn
+- syncthing-toggle@rehhouari.github.com
+- user-theme@gnome-shell-extensions.gcampax.github.com
+- copyous@boerdereinar.dev
+- accent-directories@taiwbi.com
+- editdesktopfiles@dannflower
+- tilingshell@ferrarodomenico.com
+- prapor@inbalboa.github.io
+- emoji-copy@felipeftn
+- ~~user-accent-colors@fabito02~~
+- ~~apps-menu@gnome-shell-extensions.gcampax.github.com~~
+- ~~background-logo@fedorahosted.org~~
+- ~~launch-new-instance@gnome-shell-extensions.gcampax.github.com~~
+- ~~places-menu@gnome-shell-extensions.gcampax.github.com~~
+- ~~window-list@gnome-shell-extensions.gcampax.github.com~~
