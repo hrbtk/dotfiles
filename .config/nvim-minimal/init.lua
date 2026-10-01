@@ -4,65 +4,74 @@
 
 -- Netrw
 vim.g.netrw_liststyle = 3 -- use tree mode
+vim.g.netrw_banner = 0 -- Hide the directory banner
+vim.g.netrw_winsize = 25 -- Set width for vertical explorer splits
+
+-- Grep
+if vim.fn.executable('rg') == 1 then
+    vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+    vim.opt.grepformat = "%f:%l:%c:%m"
+end
 
 -- Theme
-vim.cmd.colorscheme("default")
+-- vim.cmd.colorscheme("catppuccin")
+vim.o.termguicolors = true
+
+vim.pack.add({"https://github.com/hrbtk/nordwave.nvim"})
+vim.cmd.colorscheme("nordwave")
 
 -- General
-vim.o.undofile    = false
-vim.o.swapfile    = false
-vim.o.backup      = false
+vim.o.undofile = true
+vim.o.swapfile = false
+vim.o.backup = false
 vim.o.writebackup = false
-vim.o.autoread    = true
-vim.o.mouse       = 'a'              -- enable the mouse in all modes
-vim.cmd('filetype plugin indent on') -- Enable all filetype plugins
+vim.o.mouse = "a" -- enable the mouse in all modes
 
 -- Appearence
-vim.o.number         = true      -- Show line numbers
-vim.o.relativenumber = true      -- Show relative line numbers
-vim.o.cursorline     = true      -- Highlight current line
-vim.o.splitbelow     = true      -- Horizontal splits will be below
-vim.o.splitright     = true      -- Vertical splits will be to the right
-vim.o.wrap           = false     -- Display long lines as just one line
-vim.o.showmode       = false     -- Don't show mode in command line
+vim.o.number = true -- Show line numbers
+vim.o.relativenumber = true -- Show relative line numbers
+vim.o.cursorline = true -- Highlight current line
+vim.o.splitbelow = true -- Horizontal splits will be below
+vim.o.splitright = true -- Vertical splits will be to the right
+vim.o.wrap = false -- Display long lines as just one line
+vim.o.showmode = false -- Don't show mode in command line
 
-vim.o.termguicolors  = true      -- Enable 24-bit colors
-vim.o.showmatch      = true      -- Highlight matching brackets
-vim.o.matchtime      = 2         -- How long to show matching bracket
-vim.o.cmdheight      = 1         -- Command line height
-vim.o.conceallevel   = 0         -- Don't hide markup
-vim.o.concealcursor  = ""        -- Don't hide cursor line markup
-vim.o.lazyredraw     = true      -- Don't redraw during macros
+vim.o.showmatch = true -- Highlight matching brackets
+vim.o.matchtime = 2 -- How long to show matching bracket
+vim.o.cmdheight = 1 -- Command line height
+vim.o.conceallevel = 0 -- Don't hide markup
+vim.o.concealcursor = "" -- Don't hide cursor line markup
+vim.o.lazyredraw = true -- Don't redraw during macros
 
-vim.o.signcolumn     = "yes"     -- Always show sign column (otherwise it will shift text)
-vim.o.fillchars      = "eob: "   -- Don't show `~` outside of buffer
+vim.o.signcolumn = "yes" -- Always show sign column (otherwise it will shift text)
+vim.o.fillchars = "eob: " -- Don't show `~` outside of buffer
 
-vim.o.pumblend       = 10        -- Make builtin completion menus slightly transparent
-vim.o.pumheight      = 10        -- Make popup menu smaller
-vim.o.winblend       = 10        -- Make floating windows slightly transparent
-vim.o.winborder      = "rounded" -- Make floating windows slightly transparent
+vim.o.pumblend = 10 -- Make builtin completion menus slightly transparent
+vim.o.pumheight = 10 -- Make popup menu smaller
+vim.o.winblend = 10 -- Make floating windows slightly transparent
+vim.o.winborder = "rounded" -- Make floating windows slightly transparent
 
-vim.o.scrolloff      = 8         -- scroll page when cursor is 8 lines from top/bottom
-vim.o.sidescrolloff  = 8         -- scroll page when cursor is 8 spaces from left/right
+vim.o.scrolloff = 8 -- scroll page when cursor is 8 lines from top/bottom
+vim.o.sidescrolloff = 8 -- scroll page when cursor is 8 spaces from left/right
 
-vim.o.showtabline  = 1         -- Always show tabline (0=never, 1=when multiple tabs, 2=always)
-vim.o.tabline      = ''        -- Use default tabline (empty string uses built-in)
+vim.o.showtabline = 1 -- Always show tabline (0=never, 1=when multiple tabs, 2=always)
+vim.o.tabline = "" -- Use default tabline (empty string uses built-in)
 
 -- Search
-vim.o.ignorecase     = true -- enable case insensitive searching
-vim.o.incsearch      = true -- enable incremental searching
-vim.o.smartcase      = true -- all searches are case insensitive unless there's a capital letter
-vim.o.hlsearch       = true -- Highlight search results
+vim.o.ignorecase = true -- enable case insensitive searching
+vim.o.incsearch = true -- enable incremental searching
+vim.o.smartcase = true -- all searches are case insensitive unless there's a capital letter
+vim.o.hlsearch = true -- Highlight search results
 
 -- Editing
-vim.o.infercase      = true    -- Infer letter cases for a richer built-in keyword completion
-vim.o.smartindent    = true    -- Smart auto-indenting
-vim.o.autoindent     = true    -- Copy indent from current line
-vim.o.tabstop        = 4       -- Tab width
-vim.o.shiftwidth     = 4       -- Indent width
-vim.o.expandtab      = true    -- Spaces instead of tabs
-vim.o.fileencoding   = "utf-8" -- encoding set to utf-8
-vim.o.clipboard      = "unnamedplus"
+vim.o.infercase = true -- Infer letter cases for a richer built-in keyword completion
+vim.o.smartindent = true -- Smart auto-indenting
+vim.o.autoindent = true -- Copy indent from current line
+vim.o.tabstop = 4 -- Tab width
+vim.o.shiftwidth = 4 -- Indent width
+vim.o.expandtab = true -- Spaces instead of tabs
+vim.o.fileencoding = "utf-8" -- encoding set to utf-8
+vim.o.clipboard = "unnamedplus"
 
 -- Better diff options
 vim.opt.diffopt:append("linematch:60")
@@ -71,32 +80,41 @@ vim.opt.diffopt:append("linematch:60")
 vim.o.redrawtime = 10000
 vim.o.maxmempattern = 20000
 
-vim.o.completeopt    = 'menuone,noselect' -- Customize completions
-vim.o.virtualedit    = 'block'            -- Allow going past the end of line in visual block mode
-vim.o.formatoptions  = 'qjl1'             -- Don't autoformat comments
+vim.o.completeopt = "menuone,noselect" -- Customize completions
+vim.o.virtualedit = "block" -- Allow going past the end of line in visual block mode
+vim.o.formatoptions = "qjl1" -- Don't autoformat comments
 
 -- Command-line completion
 vim.o.wildmenu = true
 vim.o.wildmode = "longest:full,full"
-vim.opt.wildignore:append({ "*.o", "*.obj", "*.pyc", "*.class", "*.jar" })
+vim.opt.wildignore:append({
+	"*.o",
+	"*.obj",
+	"*.pyc",
+	"*.class",
+	"*.jar",
+	"*/.git/*",
+	"*/node_modules/*",
+	"*/.venv/*",
+	"*/build/*",
+})
 
 --###############
 --# Keymappings #
 --###############
 
 -- Leader key
-vim.g.mapleader      = " "
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Functional wrapper for mapping custom keybindings
-local map            = vim.keymap.set
+local map = vim.keymap.set
 
 -- misc
 map("n", "<BS><BS>", "<Cmd>suspend<CR>", { desc = "Suspend" })
-map('n', '<Esc>', "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
+map("n", "<Esc>", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { silent = true }) -- clear search highlight
 map("n", "<leader>e", "<Cmd>Explore<CR>", { desc = "File Explorer" })
-map("n", "<leader>rc", "<Cmd>e $HOME/.config/nvim/init.lua<CR>", { silent = true, desc = "Edit config" })
-map("n", "<leader>rl", "<Cmd>so $HOME/.config/nvim/init.lua<CR>", { silent = true, desc = "Reload config" })
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Delete without yanking
 map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
@@ -127,9 +145,6 @@ map("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 map("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
--- Replace all instances of highlighted words
-map("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>")
-
 -- Move lines up/down
 map("n", "<A-j>", "<Cmd>m .+1<CR>==", { desc = "Move line down" })
 map("n", "<A-k>", "<Cmd>m .-2<CR>==", { desc = "Move line up" })
@@ -147,8 +162,8 @@ map("n", "<C-f>", "<C-f>zz")
 map("n", "<C-b>", "<C-b>zz")
 
 -- Copy/paste with system clipboard
-map({ 'n', 'x' }, '<leader>y', '"+y', { desc = 'Copy to system clipboard' })
-map('n', '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
+map({ "n", "x" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+map("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 map("x", "<leader>p", '"+P', { desc = "Paste from system clipboard" })
 
 -- Search results
@@ -159,6 +174,89 @@ map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search R
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
+-- Quickfix navigation
+map("n", "[q", "<cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
+map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Next quickfix item" })
+
+-- Replace all instances of highlighted words
+map("v", "<leader>r", '"hy:%s/<C-r>h//g<left><left>', { desc = "Buffer find and replace (selected)" }) 
+map("v", "<leader>R", '"hy:Replace <C-r>h', { desc = "Project find and replace (selected)" })
+
+-- Replace word under cursor in the current buffer
+map("n", "<leader>r", ':s%///g<left><left><left>', { desc = "Buffer find and replace" } )
+map("n", "<leader>R", ':Replace ', { desc = "Project find and replace" })
+
+
+-- ###########
+-- # Replace #
+-- ###########
+
+local function get_delimiter(find, replace)
+    local delimiters = { '/', '#', '@', '_', '~', ';' }
+    for _, d in ipairs(delimiters) do
+        if not find:find(d, 1, true) and not replace:find(d, 1, true) then
+            return d
+        end
+    end
+    return '/' -- fallback
+end
+
+local function find_and_replace(find)
+    if find == nil or find == '' then
+        find = vim.fn.input('Find: ')
+    end
+    if find == '' then
+        return
+    end
+
+    local replace = vim.fn.input('Replace with: ')
+
+    -- Populate quickfix list using Ripgrep
+    local grep_cmd = 'rg --vimgrep --smart-case ' .. vim.fn.shellescape(find)
+    local output = vim.fn.system(grep_cmd)
+    if vim.v.shell_error ~= 0 or output == '' then
+        vim.notify('No matches found for: ' .. find, vim.log.levels.WARN)
+        return
+    end
+
+    -- Load results into quickfix
+    local lines = {}
+    for s in output:gmatch('[^\r\n]+') do
+        table.insert(lines, s)
+    end
+    vim.fn.setqflist({}, 'r', { title = 'Search: ' .. find, lines = lines })
+
+    local original_buf = vim.api.nvim_get_current_buf()
+    vim.cmd('copen')
+
+    -- Pick a safe delimiter for the substitution command to handle slashes in paths
+    local d = get_delimiter(find, replace)
+
+    -- Prompt user for confirmation mode
+    local choice = vim.fn.confirm('Replace all occurrences?', '&Yes\n&Confirm each\n&Cancel', 1)
+    if choice == 1 then
+        -- Replace all instantly across all files and update
+        local cmd = string.format('cfdo %%s%s%s%s%s%sg | update', d, find, d, replace, d)
+        local success, err = pcall(vim.cmd, cmd)
+        if success then
+            pcall(vim.api.nvim_set_current_buf, original_buf)
+            vim.notify('Replaced all occurrences of "' .. find .. '" with "' .. replace .. '"', vim.log.levels.INFO)
+        else
+            vim.notify('Replacement failed: ' .. tostring(err), vim.log.levels.ERROR)
+        end
+    elseif choice == 2 then
+        -- Pre-populate the command line for manual step-by-step confirmation
+        local replace_cmd = string.format('cfdo %%s%s%s%s%s%sgc | update', d, find, d, replace, d)
+        vim.api.nvim_feedkeys(':' .. replace_cmd, 'n', false)
+    end
+end
+
+
+vim.api.nvim_create_user_command('Replace', function(opts)
+    find_and_replace(opts.args)
+end, { nargs = '?' })
+
+
 -- ############
 -- # Autocmds #
 -- ############
@@ -168,47 +266,48 @@ local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 
 -- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
-    group = augroup,
-    callback = function()
-        vim.highlight.on_yank()
-    end,
+	group = augroup,
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- Auto-close terminal when process exits
 vim.api.nvim_create_autocmd("TermClose", {
-    group = augroup,
-    callback = function()
-        if vim.v.event.status == 0 then
-            vim.api.nvim_buf_delete(0, { force = true })
-        end
-    end,
+	group = augroup,
+	callback = function()
+		if vim.v.event.status == 0 then
+			vim.api.nvim_buf_delete(0, { force = true })
+		end
+	end,
 })
 
 -- Disable line numbers in terminal
 vim.api.nvim_create_autocmd("TermOpen", {
-    group = augroup,
-    callback = function()
-        vim.opt_local.number = false
-        vim.opt_local.relativenumber = false
-        vim.opt_local.signcolumn = "no"
-    end,
+	group = augroup,
+	callback = function()
+		vim.opt_local.number = false
+		vim.opt_local.relativenumber = false
+		vim.opt_local.signcolumn = "no"
+		vim.cmd("startinsert")
+	end,
 })
 
 -- Auto-resize splits when window is resized
-vim.api.nvim_create_autocmd("VimResized", {
-    group = augroup,
-    callback = function()
-        vim.cmd("tabdo wincmd =")
-    end,
+vim.api.nvim_create_autocmd("vimResized", {
+	group = augroup,
+	callback = function()
+		vim.cmd("tabdo wincmd =")
+	end,
 })
 
 -- Create directories when saving files
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup,
-    callback = function()
-        local dir = vim.fn.fnamemodify(vim.fn.expand('<afile>'), ':p:h')
-        if vim.fn.isdirectory(dir) == 0 then
-            vim.fn.mkdir(dir, 'p')
-        end
-    end,
+	group = augroup,
+	callback = function()
+		local dir = vim.fn.fnamemodify(vim.fn.expand("<afile>"), ":p:h")
+		if vim.fn.isdirectory(dir) == 0 then
+			vim.fn.mkdir(dir, "p")
+		end
+	end,
 })
