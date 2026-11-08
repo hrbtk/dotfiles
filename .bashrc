@@ -53,6 +53,7 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 alias rmdir='rmdir -v'
 alias cal='cal -m'
+alias :q='exit'
 
 # Alias for git
 alias gs='git status'
